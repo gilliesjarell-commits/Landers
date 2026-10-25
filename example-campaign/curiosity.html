@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Would Your Homeowners Insurance Pay If Your AC Wore Out?</title>
+<meta name="description" content="Most homeowners insurance won't pay when a system simply wears out. Answer 4 quick questions, then see what a home warranty plan would cover for your home.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f2f5f3;
+    --card: #ffffff;
+    --ink: #142019;
+    --muted: #5b6b62;
+    --line: #dde5e0;
+    --accent: #6d28d9;        /* niche color: progress, selected answer, buttons */
+    --accent-ink: #5b21b6;
+    --accent-soft: #efe9fd;
+    --font: 'Figtree', system-ui, -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { min-height: 100%; }
+  body { font-family: var(--font); background: var(--bg); color: var(--ink); display: flex; flex-direction: column; min-height: 100vh; }
+  img { display: block; max-width: 100%; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  .bar-top { background: #fff; border-bottom: 1px solid var(--line); }
+  .bar-top .in { max-width: 600px; margin: 0 auto; padding: 11px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .logo img { height: 26px; width: auto; }
+  .secure { font-size: 12.5px; font-weight: 600; color: var(--muted); display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .secure svg { width: 14px; height: 14px; color: var(--accent); }
+
+  .top { max-width: 600px; width: 100%; margin: 0 auto; padding: 16px 20px 0; }
+  .banner { border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 6; margin-bottom: 14px; background: linear-gradient(135deg, var(--accent-soft), #fff 55%, var(--accent-soft)); }
+  .banner img { width: 100%; height: 100%; object-fit: cover; }
+  .banner[hidden] { display: none; }
+  .headline { font-weight: 800; font-size: clamp(24px, 6.2vw, 32px); line-height: 1.12; letter-spacing: -.02em; margin-bottom: 6px; }
+  .subhead { color: var(--muted); font-size: 16px; margin-bottom: 14px; }
+  .progress { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .bar { flex: 1; height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .35s ease; }
+  .count { font-size: 13.5px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+
+  main { flex: 1; max-width: 600px; width: 100%; margin: 0 auto; padding: 0 20px 20px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px 20px; box-shadow: 0 10px 30px rgba(20, 32, 25, .07); }
+  .q { font-weight: 800; font-size: 22px; line-height: 1.25; margin-bottom: 16px; }
+  .answers { display: grid; gap: 10px; }
+  .answer { font: 600 17.5px/1.3 var(--font); color: var(--ink); text-align: left; background: #fff; border: 2px solid var(--line); border-radius: 12px; padding: 15px 16px; cursor: pointer; transition: border-color .15s, background .15s, transform .15s; display: flex; align-items: center; gap: 12px; }
+  .answer:hover { border-color: var(--accent); }
+  .answer:active { transform: scale(.99); }
+  .answer.picked { border-color: var(--accent); background: var(--accent-soft); }
+  .answer .ic { font-size: 22px; width: 36px; height: 36px; border-radius: 10px; background: var(--accent-soft); display: grid; place-items: center; flex: none; }
+  .answer .arrow { margin-left: auto; color: var(--accent); font-weight: 800; }
+  .answers.pics { grid-template-columns: 1fr 1fr; }
+  .answers.pics .answer { flex-direction: column; align-items: stretch; padding: 0; overflow: hidden; gap: 0; text-align: center; }
+  .answers.pics .pic { aspect-ratio: 1 / 1; background: linear-gradient(135deg, var(--accent-soft), #fff); }
+  .answers.pics .pic img { width: 100%; height: 100%; object-fit: cover; }
+  .answers.pics .lbl { padding: 11px 8px 12px; font-size: 15.5px; }
+  .zip { width: 100%; font: 600 22px/1 var(--font); letter-spacing: .08em; padding: 16px 18px; border: 2px solid var(--line); border-radius: 12px; color: var(--ink); }
+  .zip:focus { border-color: var(--accent); outline: none; }
+  .err { color: #b42318; font-size: 14px; min-height: 20px; margin-top: 8px; }
+  .go { display: block; width: 100%; margin-top: 10px; font: 800 18px/1 var(--font); color: #fff; background: var(--accent); border: 0; border-radius: 12px; padding: 18px; cursor: pointer; transition: background .15s; }
+  .go:hover { background: var(--accent-ink); }
+  .back { margin-top: 12px; background: none; border: 0; font: 500 14px/1 var(--font); color: var(--muted); cursor: pointer; padding: 4px 0; }
+  .back[hidden] { display: none; }
+  .fade { animation: in .25s ease; }
+  @keyframes in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .trust { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 16px; margin: 16px 0 0; list-style: none; }
+  .trust li { font-size: 13.5px; font-weight: 600; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .trust li::before { content: "\2713"; color: #fff; background: var(--accent); width: 17px; height: 17px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 800; }
+
+  .loading { padding: 18px 4px 8px; }
+  .loading .spinner { width: 44px; height: 44px; margin: 0 auto 16px; border-radius: 50%; border: 4px solid var(--accent-soft); border-top-color: var(--accent); animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading h2 { text-align: center; font-weight: 800; font-size: 20px; margin-bottom: 16px; }
+  .loading ul { list-style: none; display: grid; gap: 10px; max-width: 340px; margin: 0 auto; }
+  .loading li { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--muted); opacity: .45; transition: opacity .3s, color .3s; }
+  .loading li::before { content: ""; width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line); flex: none; }
+  .loading li.done { opacity: 1; color: var(--ink); }
+  .loading li.done::before { background: var(--accent); border-color: var(--accent); box-shadow: inset 0 0 0 3px #fff; }
+  .loading a { display: block; text-align: center; margin-top: 16px; color: var(--accent); font-weight: 600; font-size: 15px; visibility: hidden; }
+
+  footer { max-width: 600px; width: 100%; margin: 0 auto; padding: 8px 20px 24px; font-size: 11.5px; line-height: 1.55; color: var(--muted); }
+  footer .logo img { height: 18px; width: auto; opacity: .7; margin-bottom: 8px; }
+  @media (min-width: 640px) { .banner { aspect-ratio: 16 / 5; } }
+  @media (prefers-reduced-motion: reduce) { .fade, .loading .spinner { animation: none; } .bar span, .loading li { transition: none; } }
+  .legal-block { margin-top: 10px; } .legal-block .platform { margin-bottom: 8px; } .legal-block .legal a { color: inherit; font-weight: 600; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header class="bar-top"><div class="in">
+  <span class="logo"><img id="logo" src="img/logo.svg" alt="" width="170" height="26"></span>
+  <span class="secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span id="secure">Free &middot; No obligation</span></span>
+</div></header>
+
+<div class="top">
+  <div class="banner" id="banner" hidden><img id="banner-img" alt="" onerror="this.style.opacity=0"></div>
+  <h1 class="headline">Would your homeowners insurance pay if your AC just wore out?</h1>
+  <p class="subhead" id="subhead"></p>
+  <div class="progress" aria-hidden="true"><div class="bar"><span id="bar"></span></div><span class="count" id="count"></span></div>
+</div>
+
+<main>
+  <div class="card" id="card" aria-live="polite"></div>
+  <button class="back" id="back" type="button" hidden>Back</button>
+  <ul class="trust" id="trust"></ul>
+</main>
+
+<footer>
+  <span class="logo"><img id="logo-foot" src="img/logo.svg" alt="" width="120" height="18"></span>
+  <p id="disclaimer"></p>
+  <!-- LEGAL (managed by /launch-offer and /legal): traffic-source disclaimers + policy links -->
+  <div class="legal-block">
+    <p class="platform">This site is not a part of the Facebook website or Meta Platforms, Inc., and is not endorsed by Meta in any way. Facebook and Instagram are trademarks of Meta Platforms, Inc.</p>
+    <nav class="legal" aria-label="Legal"><a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="privacy.html#contact">Contact</a></nav>
+  </div>
+  <!-- /LEGAL -->
+</footer>
+
+<!-- TRACKING PASS-THROUGH (keep on every page): copies the tracker's click ID from this page's URL
+     onto every CTA (any <a data-cta>) and exposes window.trkUrl() for the quiz redirect.
+     Works with RedTrack (rtkcid), Voluum (cid), BeMob, Binom and most trackers. -->
+<script>
+(function () {
+  var KEYS = ['rtkcid', 'clickid', 'click_id', 'cid', 'subid', 'sub_id', 'vid', 'cep', 'zoneid'];
+  var pass = {};
+  try { pass = JSON.parse(sessionStorage.getItem('trk') || '{}'); } catch (e) {}
+  var q = new URLSearchParams(location.search);
+  KEYS.forEach(function (k) { var v = q.get(k); if (v) pass[k] = v; });
+  try { sessionStorage.setItem('trk', JSON.stringify(pass)); } catch (e) {}
+  window.trkUrl = function (u) {
+    try { var x = new URL(u, location.href); for (var k in pass) { if (!x.searchParams.has(k)) x.searchParams.set(k, pass[k]); } return x.toString(); }
+    catch (e) { return u; }
+  };
+  function tag() { document.querySelectorAll('a[data-cta]').forEach(function (a) { a.href = window.trkUrl(a.getAttribute('href')); }); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tag); else tag();
+})();
+</script>
+<script>
+/* ===== CONFIG: the only part to edit per campaign ===== */
+var CONFIG = {
+  "offerUrl": "https://example.com/offer?sub=curiosity",
+  "brand": "The Homekeeping Desk",
+  "banner": "img/curiosity-hero.webp",
+  "subhead": "Most policies don't cover wear and tear. Answer 4 quick questions to see what would.",
+  "secure": "Free · No obligation",
+  "trust": [
+    "Free to use",
+    "No obligation",
+    "About 60 seconds"
+  ],
+  "loadingTitle": "Finding home warranty plans for your area...",
+  "loadingSteps": [
+    "Checking plans in your area",
+    "Matching what you'd want covered",
+    "Opening your options"
+  ],
+  "loadingMs": 2600,
+  "disclaimer": "Answers are only used to move you through this page and are not stored. This page contains affiliate links; we may earn a commission at no extra cost to you. We are not a home warranty company or an insurer. A home warranty is a service contract, not insurance; coverage, fees, and availability vary by plan and state. Images are illustrations.",
+  "questions": [
+    {
+      "q": "If something broke tomorrow, what would worry you most?",
+      "answers": [
+        {
+          "t": "Heating or cooling",
+          "img": "img/curiosity-answer-1.webp"
+        },
+        {
+          "t": "Water heater or plumbing",
+          "img": "img/curiosity-answer-2.webp"
+        },
+        {
+          "t": "Kitchen appliances",
+          "img": "img/curiosity-answer-3.webp"
+        },
+        {
+          "t": "Electrical",
+          "img": "img/curiosity-answer-4.webp"
+        }
+      ]
+    },
+    {
+      "q": "What type of home do you live in?",
+      "answers": [
+        {
+          "t": "Single-family house",
+          "icon": "🏠"
+        },
+        {
+          "t": "Townhouse or condo",
+          "icon": "🏘️"
+        },
+        {
+          "t": "Mobile or manufactured home",
+          "icon": "🏡"
+        },
+        {
+          "t": "Other",
+          "icon": "📍"
+        }
+      ]
+    },
+    {
+      "q": "About how old is your home?",
+      "answers": [
+        {
+          "t": "Under 5 years",
+          "icon": "🆕"
+        },
+        {
+          "t": "5 to 15 years",
+          "icon": "🔧"
+        },
+        {
+          "t": "16 to 30 years",
+          "icon": "🛠️"
+        },
+        {
+          "t": "Over 30 years",
+          "icon": "🏚️"
+        }
+      ]
+    },
+    {
+      "q": "What is your ZIP code?",
+      "zip": true
+    }
+  ]
+};
+/* ===================================================== */
+
+var step = 0;
+var card = document.getElementById('card');
+var bar = document.getElementById('bar');
+var count = document.getElementById('count');
+var back = document.getElementById('back');
+var total = CONFIG.questions.length;
+
+(function setup() {
+  ['logo', 'logo-foot'].forEach(function (id) { document.getElementById(id).alt = CONFIG.brand || ''; });
+  if (CONFIG.banner) { var b = document.getElementById('banner'); document.getElementById('banner-img').src = CONFIG.banner; b.hidden = false; }
+  document.getElementById('subhead').textContent = CONFIG.subhead || '';
+  document.getElementById('secure').textContent = CONFIG.secure || '';
+  document.getElementById('disclaimer').textContent = CONFIG.disclaimer || '';
+  var t = document.getElementById('trust');
+  (CONFIG.trust || []).forEach(function (s) { var li = document.createElement('li'); li.textContent = s; t.appendChild(li); });
+})();
+
+function norm(a) { return typeof a === 'string' ? { t: a } : a; }
+
+function render() {
+  var item = CONFIG.questions[step];
+  bar.style.width = (step / total * 100) + '%';
+  count.textContent = 'Question ' + (step + 1) + ' of ' + total;
+  back.hidden = step === 0;
+  card.className = 'card fade';
+  card.innerHTML = '';
+  var h = document.createElement('h2'); h.className = 'q'; h.textContent = item.q; card.appendChild(h);
+
+  if (item.zip) {
+    var form = document.createElement('form'); form.noValidate = true;
+    form.innerHTML = '<label for="zip" style="position:absolute;left:-9999px">ZIP code</label>' +
+      '<input class="zip" id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="12345">' +
+      '<div class="err" id="err"></div><button class="go" type="submit">See my options</button>';
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = document.getElementById('zip').value.trim();
+      if (!/^\d{5}$/.test(v)) { document.getElementById('err').textContent = 'Enter a 5-digit ZIP code.'; return; }
+      next();
+    });
+    card.appendChild(form);
+    setTimeout(function () { var z = document.getElementById('zip'); if (z) z.focus(); }, 50);
+  } else {
+    var answers = item.answers.map(norm);
+    var pics = answers.every(function (a) { return a.img; });
+    var list = document.createElement('div'); list.className = 'answers' + (pics ? ' pics' : '');
+    answers.forEach(function (a) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'answer';
+      if (pics) {
+        var p = document.createElement('span'); p.className = 'pic';
+        var im = document.createElement('img'); im.src = a.img; im.alt = ''; im.onerror = function () { im.style.opacity = 0; };
+        p.appendChild(im); b.appendChild(p);
+        var l = document.createElement('span'); l.className = 'lbl'; l.textContent = a.t; b.appendChild(l);
+      } else {
+        if (a.icon) { var ic = document.createElement('span'); ic.className = 'ic'; ic.textContent = a.icon; b.appendChild(ic); }
+        var tx = document.createElement('span'); tx.textContent = a.t; b.appendChild(tx);
+        var ar = document.createElement('span'); ar.className = 'arrow'; ar.textContent = '›'; ar.setAttribute('aria-hidden', 'true'); b.appendChild(ar);
+      }
+      b.addEventListener('click', function () { b.classList.add('picked'); setTimeout(next, 220); });
+      list.appendChild(b);
+    });
+    card.appendChild(list);
+  }
+}
+
+function next() {
+  step++;
+  if (step < total) { render(); return; }
+  bar.style.width = '100%';
+  count.textContent = 'Done';
+  back.hidden = true;
+  card.className = 'card fade';
+  card.innerHTML = '<div class="loading"><div class="spinner"></div><h2></h2><ul></ul><a href="#">Continue</a></div>';
+  card.querySelector('h2').textContent = CONFIG.loadingTitle;
+  var ul = card.querySelector('ul'), steps = CONFIG.loadingSteps || [];
+  steps.forEach(function (s) { var li = document.createElement('li'); li.textContent = s; ul.appendChild(li); });
+  var lis = ul.querySelectorAll('li');
+  lis.forEach(function (li, i) { setTimeout(function () { li.classList.add('done'); }, (i + 1) * CONFIG.loadingMs / (lis.length + 1)); });
+  var dest = window.trkUrl ? window.trkUrl(CONFIG.offerUrl) : CONFIG.offerUrl;
+  var link = card.querySelector('a'); link.href = dest;
+  setTimeout(function () { window.location.assign(dest); }, CONFIG.loadingMs);
+  setTimeout(function () { link.style.visibility = 'visible'; }, CONFIG.loadingMs + 2000);
+}
+
+back.addEventListener('click', function () { if (step > 0) { step--; render(); } });
+render();
+</script>
+</body>
+</html>

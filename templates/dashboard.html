@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--
+  TEMPLATE: Campaign dashboard (Campaign Agent)
+  Every campaign's <slug>/index.html starts from this file. Keep the design (dark background, green/blue
+  glow, cards, tabs, Copy buttons) and replace the sample content (auto insurance):
+  - <title>, the h1, the sub line, and the meta chips (launch date, vertical, EPC only if the user gave one, budget, traffic, link status)
+  - Notices: one .notice block per requirement worth seeing before launch (traffic-source policy, placeholder
+    link, compliance baseline). Delete the block if there is nothing to flag. Classes: .notice (blue) .warn (amber)
+  - Why these angles: all 5 angles with score; the 3 picked get class "sc on", the 2 skipped plain "sc"
+  - Landing pages: one .card per page; --c = that page's accent; .fmt = its format (Advertorial / Direct / Quiz);
+    .thumb = that page's hero image (img/<angle>-hero.webp, or the Higgsfield URL if it was hotlinked)
+  - Ad copy: one tab + pane per angle, every item with a Copy button. When the traffic has image ads (see
+    "Image ads" in CLAUDE.md), each pane starts, right after its "Lands on" line, with:
+    <div class="grp"><h4>Image ads</h4><div class="adimgs">
+      <figure class="adimg"><img src="ads/img/<angle>-feed-4x5.webp" alt="" loading="lazy"><figcaption><b>Feed 4:5</b><br>Facebook &amp; Instagram feed</figcaption>
+      <div class="dl"><a href="ads/img/<angle>-feed-4x5.webp" download>Download</a></div></figure>
+      ... one figure per file (Feed 1:1 = Facebook, Instagram, Audience Network; Native 16:9 = Taboola / Outbrain, no text)
+    </div></div>
+  - No test plan or CTR / Kill vs Scale rules: benchmarks differ by traffic source, so the dashboard leaves them out
+  Use absolute live URLs: <Site URL from CLAUDE.md><slug>/<file>. Don't link to research.md (the repo is private).
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campaign Dashboard: Auto Insurance</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Sora,system-ui,sans-serif;background:#070b14;color:#dbe4f0;line-height:1.6;min-height:100vh;overflow-x:hidden}
+.blob{position:fixed;border-radius:50%;filter:blur(140px);z-index:0;pointer-events:none}
+.b1{width:480px;height:480px;background:#2e7d32;opacity:.3;top:-200px;left:-160px}
+.b2{width:420px;height:420px;background:#3b62c4;opacity:.22;top:-160px;right:-140px}
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:40px 20px 70px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#7ee085,#2e7d32);display:flex;align-items:center;justify-content:center;font-weight:800;color:#06210b}
+.wm{font-weight:800;font-size:15px;color:#fff}
+.tag{display:inline-flex;align-items:center;gap:8px;background:rgba(46,125,50,.14);color:#7ee085;border:1px solid rgba(46,125,50,.4);padding:6px 15px;border-radius:30px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase}
+.dot{width:7px;height:7px;border-radius:50%;background:#7ee085;box-shadow:0 0 10px #7ee085;animation:p 1.8s infinite}
+@keyframes p{50%{opacity:.35}}
+h1{font-size:clamp(32px,6vw,50px);font-weight:800;letter-spacing:-1.4px;line-height:1.08;margin:18px 0 10px;background:linear-gradient(100deg,#fff 25%,#8fa6c4);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:#7d8fa8;font-size:15px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 34px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);padding:7px 13px;border-radius:10px;font-size:12px;color:#a8bad0}
+.chip b{color:#fff}
+h2{font-size:13px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#7d8fa8;margin:0 0 14px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px}
+.card{display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-top:3px solid var(--c);border-radius:18px;padding:20px;transition:transform .2s,background .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);background:rgba(255,255,255,.07);border-color:var(--c)}
+.ch{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.badge{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:var(--c);background:rgba(255,255,255,.06);border:1px solid var(--c)}
+.nm{font-weight:700;color:#fff;flex:1}
+.go{font-size:12px;color:var(--c);font-weight:700}
+.card p{font-size:13.5px;color:#a8bad0;margin-bottom:12px}
+.thumb{display:block;margin:-20px -20px 14px;aspect-ratio:16/9;background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.01));border-radius:15px 15px 0 0;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card code{display:block;font-size:11px;color:#6b7f9a;word-break:break-all;background:rgba(0,0,0,.25);padding:8px 10px;border-radius:8px}
+.panel{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:22px;margin-bottom:40px}
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tab{font-family:inherit;font-size:13.5px;font-weight:700;color:#a8bad0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:9px 18px;border-radius:30px;cursor:pointer}
+.tab.on{color:#070b14;background:var(--c);border-color:var(--c)}
+.pane{display:none}.pane.on{display:block}
+.lp{font-size:12.5px;color:#7d8fa8;margin-bottom:14px}.lp a{color:#7ee085}
+.grp{margin-bottom:20px}
+.grp h4{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8fa6c4;margin-bottom:8px}
+.grp ul{list-style:none;display:grid;gap:8px}
+.grp li{display:flex;gap:12px;align-items:flex-start;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px 14px}
+.grp .t{flex:1;font-size:14px;color:#dbe4f0}
+.cp{font-family:inherit;flex:0 0 auto;font-size:11.5px;font-weight:700;color:#7ee085;background:rgba(126,224,133,.1);border:1px solid rgba(126,224,133,.35);border-radius:8px;padding:6px 11px;cursor:pointer}
+.cp.done{color:#070b14;background:#7ee085}
+.why{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:10px}
+.sc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;opacity:.55}
+.sc.on{opacity:1;background:rgba(126,224,133,.07);border-color:rgba(126,224,133,.35)}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-bottom:6px}.sh b{color:#fff;font-size:13.5px}
+.dots{font-size:12px;font-weight:700;color:#7ee085}.sc p{font-size:12px;color:#a8bad0}
+.adimgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-bottom:6px}.adimg{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px;margin:0;min-width:0}.adimg img{width:100%;border-radius:8px;display:block;background:#0b1220}.adimg figcaption{font-size:11.5px;color:#a8bad0;margin:8px 0 0;line-height:1.4}.adimg figcaption b{color:#fff}.dl{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.dl a{font-size:11.5px;font-weight:700;color:#7ee085;background:rgba(126,224,133,.1);border:1px solid rgba(126,224,133,.35);border-radius:8px;padding:6px 10px;text-decoration:none}
+.srcl{font-size:12px;color:#6b7f9a;margin-bottom:34px}.srcl a{color:#7ee085}
+@media(max-width:760px){.why{grid-template-columns:1fr 1fr}}
+.notice{background:rgba(59,98,196,.12);border:1px solid rgba(96,165,250,.35);border-radius:14px;padding:14px 16px;font-size:13.5px;color:#c4d2e6;margin-bottom:10px}.notice b{color:#93c5fd}.notice.warn{background:rgba(250,204,21,.07);border-color:rgba(250,204,21,.35)}.notice.warn b{color:#fde68a}.notices{margin:-10px 0 34px}.fmt{display:inline-block;font-size:11px;font-weight:700;color:#c4d2e6;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:3px 10px;margin:0 0 10px}.why{margin-bottom:34px!important}.foot{margin-top:40px;padding-top:18px;border-top:1px solid rgba(255,255,255,.07);text-align:center;font-size:11.5px;color:#4e5f78}
+@media(max-width:760px){.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<div class="wrap">
+<div class="top"><div class="mark">C</div><span class="wm">Campaign Agent</span></div>
+<span class="tag"><span class="dot"></span>Testing</span>
+<h1>Auto Insurance</h1>
+<p class="sub">Research picked 3 of 5 angles. 3 bridge pages, ad copy ready to paste. Built and deployed with Claude Code.</p>
+<div class="meta"><span class="chip">Launched &middot; <b>Sep 29, 2026</b></span><span class="chip">Vertical &middot; <b>Insurance</b></span><span class="chip">Test budget &middot; <b>$50</b></span><span class="chip">Traffic &middot; <b>Facebook + Native</b></span><span class="chip">Affiliate link &middot; <b>Placeholder</b></span></div>
+<div class="notices"><div class="notice warn"><b>Affiliate link:</b> placeholder in use. Swap it with <code>/swap-link auto-insurance &lt;your link&gt;</code> before sending traffic.</div></div>
+<h2>Why these angles</h2>
+<div class="why">
+<div class="sc on"><div class="sh"><b>Pain Point</b><span class="dots">5/5</span></div><p>Renewal hikes are the #1 frustration; 63% of drivers saw one.</p></div>
+<div class="sc on"><div class="sh"><b>Curiosity</b><span class="dots">4/5</span></div><p>"Same car, why do they pay less?" is a natural open loop here.</p></div>
+<div class="sc on"><div class="sh"><b>Social Proof</b><span class="dots">4/5</span></div><p>Real sourced data exists, and it speaks to inertia: only 13% switched.</p></div>
+<div class="sc"><div class="sh"><b>Direct Benefit</b><span class="dots">4/5</span></div><p>Skipped: overlaps with Pain. Backup angle for round 2.</p></div>
+<div class="sc"><div class="sh"><b>Fear</b><span class="dots">2/5</span></div><p>Skipped: fear appeals in insurance feel predatory and risk ad review.</p></div>
+</div>
+<h2>Landing pages</h2>
+<div class="cards"><a class="card" href="https://yourname.github.io/landers/auto-insurance/pain.html" target="_blank" rel="noopener" style="--c:#f87171">
+<span class="thumb"><img src="https://yourname.github.io/landers/auto-insurance/img/pain-hero.webp" alt="" onerror="this.style.opacity=0"></span><div class="ch"><span class="badge">A</span><span class="nm">Pain Point Lander</span><span class="go">Open &#8599;</span></div><span class="fmt">Advertorial</span>
+<p>Names the frustration: the renewal price keeps rising with a clean record.</p><code>https://yourname.github.io/landers/auto-insurance/pain.html</code></a><a class="card" href="https://yourname.github.io/landers/auto-insurance/curiosity.html" target="_blank" rel="noopener" style="--c:#a78bfa">
+<span class="thumb"><img src="https://yourname.github.io/landers/auto-insurance/img/curiosity-hero.webp" alt="" onerror="this.style.opacity=0"></span><div class="ch"><span class="badge">B</span><span class="nm">Curiosity Lander</span><span class="go">Open &#8599;</span></div><span class="fmt">Quiz</span>
+<p>Opens a loop: same car, same street, why does one driver pay more?</p><code>https://yourname.github.io/landers/auto-insurance/curiosity.html</code></a><a class="card" href="https://yourname.github.io/landers/auto-insurance/social-proof.html" target="_blank" rel="noopener" style="--c:#60a5fa">
+<span class="thumb"><img src="https://yourname.github.io/landers/auto-insurance/img/social-proof-hero.webp" alt="" onerror="this.style.opacity=0"></span><div class="ch"><span class="badge">C</span><span class="nm">Social Proof Lander</span><span class="go">Open &#8599;</span></div><span class="fmt">Advertorial</span>
+<p>Leads with real survey data: most drivers paid more, and switchers did it to pay less.</p><code>https://yourname.github.io/landers/auto-insurance/social-proof.html</code></a></div>
+<h2>Ad copy</h2>
+<div class="panel"><div class="tabs"><button class="tab on" data-t="Pain-Point" type="button" style="--c:#f87171">Pain Point</button><button class="tab" data-t="Curiosity" type="button" style="--c:#a78bfa">Curiosity</button><button class="tab" data-t="Social-Proof" type="button" style="--c:#60a5fa">Social Proof</button></div><div class="pane on" id="p-Pain-Point"><div class="lp">Lands on <a href="https://yourname.github.io/landers/auto-insurance/pain.html" target="_blank" rel="noopener">pain.html</a></div><div class="grp"><h4>Hooks (under 15 words)</h4><ul><li><span class="t">Your car insurance went up again. You didn&#x27;t do anything wrong.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Clean record, same car, bigger bill. Sound familiar?</span><button class="cp" type="button">Copy</button></li><li><span class="t">Before you pay that renewal, check this.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>PAS body (Pain → Agitate → Solution)</h4><ul><li><span class="t">Your renewal came in higher, again, with no tickets and no accidents. And the longer you put off shopping around, the more months you pay that higher price without knowing if it&#x27;s fair. Compare quotes from multiple insurers in about 2 minutes, free, and see where you stand. (Rates vary.)</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Meta / Facebook: primary text</h4><ul><li><span class="t">Your car insurance went up again, and you didn&#x27;t do anything wrong. See if you&#x27;re overpaying in about 2 minutes.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Clean record. Same car. Higher bill. Renewal prices can change every year, and loyalty doesn&#x27;t always get you the best rate. Compare quotes from multiple insurers for free before you pay another renewal.</span><button class="cp" type="button">Copy</button></li><li><span class="t">You open the renewal email expecting the same price as last year. It&#x27;s higher. No tickets, no accidents, no explanation. You tell yourself you&#x27;ll shop around &quot;when you have time,&quot; and another year goes by. This is your sign: comparing quotes takes about 2 minutes. See what other insurers would charge you. (Rates vary by driver.)</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Meta / Facebook: headlines (≤40 characters)</h4><ul><li><span class="t">Car Insurance Went Up Again?</span><button class="cp" type="button">Copy</button></li><li><span class="t">Stop Overpaying for Car Insurance</span><button class="cp" type="button">Copy</button></li><li><span class="t">Check Your Rate in 2 Minutes</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Meta / Facebook: descriptions (≤30 characters)</h4><ul><li><span class="t">Free. No obligation to switch.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Takes about 2 minutes.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Native (Taboola / Outbrain): headlines (≤60 characters)</h4><ul><li><span class="t">Car Insurance Went Up With a Clean Record? Read This</span><button class="cp" type="button">Copy</button></li><li><span class="t">Drivers Who Renew Without Checking May Be Overpaying</span><button class="cp" type="button">Copy</button></li><li><span class="t">Why Loyal Drivers Often Pay More for Car Insurance</span><button class="cp" type="button">Copy</button></li><li><span class="t">Before You Pay Your Car Insurance Renewal, Do This</span><button class="cp" type="button">Copy</button></li><li><span class="t">Your Car Insurance Bill Keeps Rising. Here&#x27;s Why.</span><button class="cp" type="button">Copy</button></li></ul></div></div><div class="pane" id="p-Curiosity"><div class="lp">Lands on <a href="https://yourname.github.io/landers/auto-insurance/curiosity.html" target="_blank" rel="noopener">curiosity.html</a></div><div class="grp"><h4>Hooks (under 15 words)</h4><ul><li><span class="t">Same car. Same street. Why does your neighbor pay less?</span><button class="cp" type="button">Copy</button></li><li><span class="t">Every insurer prices you differently. Here&#x27;s why that matters.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Driver A or Driver B? Find out in 2 minutes.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>PAS body (Pain → Agitate → Solution)</h4><ul><li><span class="t">Two drivers with the same car and a clean record can pay very different prices. If you&#x27;ve never compared, you don&#x27;t know which one you are, and your insurer isn&#x27;t going to tell you. See how different insurers would price you in about 2 minutes. (Rates vary.)</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Meta / Facebook: primary text</h4><ul><li><span class="t">Same car. Same street. So why does one driver pay more for insurance? The answer is simpler than you think.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Two neighbors can drive the same model with the same clean record and still get very different car insurance prices. It&#x27;s not a discount code or a special connection. See which driver you are.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Picture two neighbors with the same car, parked on the same street, both with clean records. They compare insurance bills and the numbers aren&#x27;t even close. Why? Every insurer scores the same driver differently, so the cheapest company for one person isn&#x27;t always the cheapest for the next. The only way to know where you land is to check. (Rates vary.)</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Meta / Facebook: headlines (≤40 characters)</h4><ul><li><span class="t">Why Does Your Neighbor Pay Less?</span><button class="cp" type="button">Copy</button></li><li><span class="t">Same Car. Different Price. Why?</span><button class="cp" type="button">Copy</button></li><li><span class="t">Driver A or Driver B?</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Meta / Facebook: descriptions (≤30 characters)</h4><ul><li><span class="t">Find out in 2 minutes.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Free quote comparison.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Native (Taboola / Outbrain): headlines (≤60 characters)</h4><ul><li><span class="t">Same Car, Same Street: Why One Driver Pays More</span><button class="cp" type="button">Copy</button></li><li><span class="t">What Most Drivers Never Ask About Car Insurance</span><button class="cp" type="button">Copy</button></li><li><span class="t">The Simple Reason Some Drivers Pay Less for Insurance</span><button class="cp" type="button">Copy</button></li><li><span class="t">Two Drivers, One Car Model, Two Very Different Prices</span><button class="cp" type="button">Copy</button></li><li><span class="t">Is Your Car Insurance Priced Fairly? Here&#x27;s How to Tell</span><button class="cp" type="button">Copy</button></li></ul></div></div><div class="pane" id="p-Social-Proof"><div class="lp">Lands on <a href="https://yourname.github.io/landers/auto-insurance/social-proof.html" target="_blank" rel="noopener">social-proof.html</a></div><div class="grp"><h4>Hooks (under 15 words)</h4><ul><li><span class="t">63% of drivers saw their car insurance go up. Here&#x27;s what switchers did.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Most drivers got a higher bill this year. Few checked for a better one.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Why drivers who switched insurers did it (it&#x27;s not complicated).</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>PAS body (Pain → Agitate → Solution)</h4><ul><li><span class="t">Nearly two-thirds of drivers saw their premium rise last year, according to a CarInsurance.com survey. Yet only about 1 in 8 switched, and most of those who did said it was for a cheaper price. Do what they did: compare quotes in about 2 minutes, free, before your next renewal. (Rates vary.)</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Meta / Facebook: primary text</h4><ul><li><span class="t">Most drivers saw their car insurance go up this year. Only a few checked for a better price. Compare quotes in about 2 minutes.</span><button class="cp" type="button">Copy</button></li><li><span class="t">63% of drivers said their premium went up in the past year (CarInsurance.com, 2026). The ones who switched mostly did it for one reason: they found a cheaper premium. See what other insurers would charge you. Free, no obligation.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Your renewal notice lands. The number is higher. You tell yourself everyone&#x27;s rates went up, so why bother? It&#x27;s true that most drivers saw an increase. But the drivers who compared and switched mostly did it because they found a lower price. Take 2 minutes and see if you&#x27;re one of them. (Rates vary.)</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Meta / Facebook: headlines (≤40 characters)</h4><ul><li><span class="t">Most Drivers Paid More This Year</span><button class="cp" type="button">Copy</button></li><li><span class="t">See What Switchers Found</span><button class="cp" type="button">Copy</button></li><li><span class="t">Compare Car Insurance in 2 Min</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Meta / Facebook: descriptions (≤30 characters)</h4><ul><li><span class="t">Free. No obligation.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Join drivers who checked.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Native (Taboola / Outbrain): headlines (≤60 characters)</h4><ul><li><span class="t">63% of Drivers Saw Car Insurance Go Up. Few Did This.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Why Drivers Who Switched Insurers Did It</span><button class="cp" type="button">Copy</button></li><li><span class="t">Most Drivers Paid More for Car Insurance This Year</span><button class="cp" type="button">Copy</button></li><li><span class="t">The One Reason Most Drivers Switch Car Insurance</span><button class="cp" type="button">Copy</button></li><li><span class="t">Your Rate Went Up? Here&#x27;s What Other Drivers Did</span><button class="cp" type="button">Copy</button></li></ul></div></div></div>
+<p class="foot">Generated by the Campaign Agent &middot; Claude Code</p>
+</div>
+<script>
+document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){
+document.querySelectorAll('.tab,.pane').forEach(function(e){e.classList.remove('on')});
+t.classList.add('on');document.getElementById('p-'+t.dataset.t).classList.add('on');})});
+document.querySelectorAll('.cp').forEach(function(b){b.addEventListener('click',function(){
+var txt=b.previousElementSibling.textContent;
+var done=function(){b.textContent='Copied';b.classList.add('done');setTimeout(function(){b.textContent='Copy';b.classList.remove('done')},1400)};
+if(navigator.clipboard){navigator.clipboard.writeText(txt).then(done,function(){})}})});
+</script>
+</body>
+</html>

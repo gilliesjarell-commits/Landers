@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 40" width="270" height="40" role="img" aria-label="The Driver's Ledger">
+  <!-- LOGO (Campaign Agent): generic publisher name only, never a real outlet or the offer's brand.
+       Edit: the name (aria-label and <text>), the initial inside the mark, and the brand color (#0e6e5c).
+       Width: textLength = 11.5 x (number of characters in the name); viewBox width and width = textLength + 50.
+       textLength pins the wordmark to that width so it never gets cut off, whatever font the device has. -->
+  <rect x="0" y="4" width="32" height="32" rx="8" fill="#0e6e5c"/>
+  <text x="16" y="27" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="700" fill="#fff">D</text>
+  <text x="44" y="28" textLength="219" lengthAdjust="spacingAndGlyphs" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700" fill="#1b2430">The Driver's Ledger</text>
+</svg>

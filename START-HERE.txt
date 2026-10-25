@@ -1,0 +1,22 @@
+CAMPAIGN AGENT for Claude Code
+==============================
+Open "Campaign-Agent-Setup-Guide.pdf" and follow it step by step.
+
+What's in this folder:
+  _config.yml                        Keeps your system files off your live site
+  CLAUDE.md                          The rules and your settings. Claude reads it automatically.
+  RUNBOOK.md                         A short reference for every command and feature
+  .claude/commands/setup.md          /setup         one-time setup
+  .claude/commands/launch-offer.md   /launch-offer  build and deploy a campaign
+  .claude/commands/swap-link.md      /swap-link     change the affiliate link on a campaign
+  .claude/commands/swap-logo.md      /swap-logo     rename the publisher / swap the logo
+  .claude/commands/swap-image.md     /swap-image    replace or regenerate images and image ads
+  .claude/commands/legal.md          /legal         fill the Privacy Policy and Terms, update disclaimers
+  templates/                         Advertorial, Direct, Quiz, dashboard, Privacy and Terms templates
+  _tools/                            The image-ad builder (used automatically)
+  _addons/video-ads/                 Optional video ads add-on, switched off (see page 11 of the guide)
+  example-campaign/                  A finished example (home warranty, with images and image ads)
+
+Note: the .claude folder can be hidden.
+  Mac: in Finder press Cmd + Shift + . (period) to see it.
+  Windows: unzip first (right-click > Extract All), then in File Explorer turn on View > Show > Hidden items.

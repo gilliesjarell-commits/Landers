@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+  TEMPLATE: Terms of Service (Campaign Agent). Copy to <slug>/terms.html. One per campaign.
+  A starting point for an affiliate bridge page, not legal advice: have a lawyer review it before you scale.
+  PLACEHOLDERS: every <span data-ph="..."> is filled from CLAUDE.md Settings by /launch-offer or /legal
+  (class="ph" = still a placeholder). Keys: publisher, business, email, address, state, date.
+  The "Not advice" section: keep the line that matches the vertical (insurance, financial, medical, gambling...).
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --ink: #1b2430; --muted: #5e6b7a; --rule: #e4e7ec; --wash: #f6f7f9; --link: #1d4ed8; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font: 16px/1.65 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: var(--ink); background: #fff; }
+  header { border-bottom: 1px solid var(--rule); }
+  header .in, main, footer .in { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  header .in { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
+  header img { height: 28px; width: auto; display: block; }
+  header a { color: var(--muted); font-size: 14px; }
+  main { padding-top: 34px; padding-bottom: 40px; }
+  h1 { font-size: 32px; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 6px; }
+  .meta { color: var(--muted); font-size: 14px; margin-bottom: 26px; }
+  h2 { font-size: 19px; margin: 28px 0 8px; }
+  p, li { margin-bottom: 10px; }
+  ul { padding-left: 22px; }
+  a { color: var(--link); }
+  .ph { background: #fff3a3; padding: 0 3px; border-radius: 3px; }
+  .contact { background: var(--wash); border-radius: 8px; padding: 16px 18px; }
+  footer { border-top: 1px solid var(--rule); background: var(--wash); color: var(--muted); font-size: 13px; }
+  footer .in { padding-top: 18px; padding-bottom: 24px; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<header><div class="in">
+  <img src="img/logo.svg" alt="The Driver's Ledger" width="190" height="28">
+  <a href="javascript:history.back()">&larr; Back</a>
+</div></header>
+
+<main>
+  <h1>Terms of Service</h1>
+  <p class="meta">Effective <span class="ph" data-ph="date">[Effective date]</span></p>
+
+  <h2>About these pages</h2>
+  <p>These pages are published by <span data-ph="publisher">The Driver's Ledger</span>, a marketing publication operated by <span class="ph" data-ph="business">[Your Business LLC]</span>. By using them you agree to these terms. If you don't agree, please don't use the pages.</p>
+
+  <h2>Advertising and affiliate relationship</h2>
+  <p>Our pages are advertising. They contain affiliate links to third-party offers, and we may earn a commission if you click a link and take an action, such as requesting a quote or signing up, at no extra cost to you. We are not the provider of the products or services we link to.</p>
+
+  <h2>Not advice</h2>
+  <p>Content is for general information only. It is not insurance, financial, legal, medical or other professional advice. Check the details, terms and suitability of any offer with its provider before you decide.</p>
+
+  <h2>Third-party offers</h2>
+  <p>Offers, prices, coverage, eligibility and availability are set by the third parties who provide them, can change at any time, and are subject to their own terms and privacy policies. We don't control and aren't responsible for their sites, products, decisions or customer service.</p>
+
+  <h2>No guarantees</h2>
+  <p>We try to keep our pages accurate, but we don't guarantee any particular result, rate, saving, prize or outcome. The pages are provided "as is" without warranties of any kind, to the fullest extent allowed by law.</p>
+
+  <h2>Limitation of liability</h2>
+  <p>To the fullest extent allowed by law, <span class="ph" data-ph="business">[Your Business LLC]</span> is not liable for any indirect or consequential loss arising from your use of these pages or of any third-party offer.</p>
+
+  <h2>Content and use</h2>
+  <p>The text, design and images on these pages belong to us or our licensors. Images are illustrations. Don't copy or misuse the pages, interfere with their operation, or use them for anything unlawful.</p>
+
+  <h2>Governing law</h2>
+  <p>These terms are governed by the laws of <span class="ph" data-ph="state">[State / Country]</span>, without regard to conflict-of-law rules.</p>
+
+  <h2>Changes</h2>
+  <p>We may update these terms. The effective date at the top shows when they last changed.</p>
+
+  <h2 id="contact">Contact</h2>
+  <div class="contact">
+    <p><span class="ph" data-ph="business">[Your Business LLC]</span><br>
+    <span class="ph" data-ph="address">[Street, City, State ZIP, Country]</span><br>
+    Email: <span class="ph" data-ph="email">[contact@yourdomain.com]</span></p>
+  </div>
+</main>
+
+<footer><div class="in">
+  <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="privacy.html#contact">Contact</a>
+</div></footer>
+</body>
+</html>

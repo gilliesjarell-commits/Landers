@@ -1,0 +1,10 @@
+# GitHub Pages settings for the Campaign Agent.
+# Only campaign pages (landers + dashboards) are published. The system files below stay private.
+exclude:
+  - CLAUDE.md
+  - RUNBOOK.md
+  - templates
+  - "*/research.md"
+  - "**/research.md"
+  - "*/ad-copy.md"
+  - "**/ad-copy.md"
