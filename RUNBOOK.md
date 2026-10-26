@@ -39,7 +39,7 @@ test-ready without tweaks.
 - **Logo:** each campaign gets a made-up publisher name (e.g. "The Homekeeping Desk") and one logo
   file, `<offer>/img/logo.svg`, used on all 3 pages. When you buy a domain, rename it:
   `/swap-logo home-warranty-2 homekeepingdesk.com` (add a logo file path to use your own artwork).
-- **Images:** generated with Higgsfield Nano Banana Pro (about 2 credits each, 8–14 per campaign), compressed to WebP under 200KB and saved in
+- **Images:** generated with muapi.ai Nano Banana Pro (8–14 per campaign; needs your key in `MUAPI_API_KEY`, from https://muapi.ai/access-keys), compressed to WebP under 200KB and saved in
   `<offer>/img/`. File names and shapes are listed in CLAUDE.md under "Image spots".
   - Replace one: `/swap-image home-warranty-2 pain-hero.webp ~/Downloads/my-photo.jpg`
   - Regenerate one with a new idea: `/swap-image home-warranty-2 pain-hero.webp a family relaxing in a cool living room`
@@ -51,8 +51,9 @@ test-ready without tweaks.
   Google, Bing, pop and TikTok campaigns get none. They're on the dashboard with Download buttons.
 - **Video ads (optional add-on):** off by default. See `_addons/video-ads/README.md`
   (`node _addons/video-ads/toggle.mjs on`, then `/make-video <slug>` after a launch).
-- **Cloud sessions:** if the cloud environment blocks the Higgsfield image host (`d8j0ntlcm91z4.cloudfront.net`), allow it under Network access, or the pages link
-  the images from Higgsfield instead of saving them. They still show, but run
+- **Cloud sessions:** allow `api.muapi.ai` (and the image host it returns) under Network access, and add
+  `MUAPI_API_KEY` to the environment variables. If only the image host is blocked, the pages link
+  the images from muapi instead of saving them. They still show, but run
   `/swap-image <offer> all` from your own terminal to save them into the repo.
 
 ## Privacy Policy, Terms and platform disclaimers

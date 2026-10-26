@@ -78,15 +78,15 @@ the vertical's line), and write each lander's LEGAL footer block with one line p
 (Native also changes the advertorial top label).
 
 **4d. Images.** Follow "Making the images" and "Image rules" in CLAUDE.md: write one prompt per
-image spot the 3 pages use (photo recipe first), generate them with Higgsfield (batches of up to 12), wait,
+image spot the 3 pages use (photo recipe first), generate them with `node _tools/muapi-image.mjs` (one jobs file for all of them),
 then save them as WebP under 200 KB and look at each one (regenerate any with borders, text or an
 illustrated look) into
-`<slug>/img/` (or link the Higgsfield URLs if the download is blocked). Skip this step if Images is
-`none` in Settings or Higgsfield isn't connected, and say so on the dashboard.
+`<slug>/img/` (or link the muapi URLs if the download is blocked). Skip this step if Images is
+`none` in Settings, `MUAPI_API_KEY` isn't set or muapi can't be reached, and say so on the dashboard.
 
 **4e. Image ads.** Follow "Image ads" in CLAUDE.md: only the sizes the traffic source uses (Facebook /
 Instagram → feed 4:5 + 1:1 with the headline; Native → 16:9, no text; none for Google, Bing, pop, TikTok).
-Generate the photos in the same Higgsfield batch as the lander images when you can, build the files with
+Generate the photos in the same muapi jobs file as the lander images when you can, build the files with
 `node _tools/ad-image.mjs`, and look at each one. Use the Meta headlines you write in step 5 (write them
 first if needed). Skip if Images is `none`.
 
@@ -110,7 +110,7 @@ instructions in the template's top comment:
   test budget, traffic source, affiliate link status. Status "Testing".
 - Notices for anything to know before launch: traffic-source policy requirements, placeholder link,
   the compliance baseline for regulated niches, the publisher name (swap with `/swap-logo`), and
-  images that are linked from Higgsfield or still missing, and the "Legal pages" warning while any
+  images that are linked from muapi or still missing, and the "Legal pages" warning while any
   Settings business detail is still a placeholder. Skip the block if there's nothing to flag.
 - "Why these angles": all 5 angles with scores; the 3 picked highlighted, the 2 skipped dimmed.
 - Image ads (if the traffic has any): first block in each angle's ad-copy pane, one figure per file with
@@ -128,7 +128,7 @@ Use absolute live URLs: `<Site URL from CLAUDE.md><slug>/<file>`. Don't link to 
 - No invented testimonials, ratings, results, or specific savings/income numbers.
 - Social Proof and Fear pages follow the guardrails in CLAUDE.md.
 - Every dashboard link matches a file that exists.
-- Every `img/` path on every page points to a file in `<slug>/img/` (or a Higgsfield URL), `img/logo.svg`
+- Every `img/` path on every page points to a file in `<slug>/img/` (or a muapi URL), `img/logo.svg`
   exists, and the publisher name is the same on all 3 pages.
 - `privacy.html` and `terms.html` exist, every lander's footer has the LEGAL block with the right
   traffic-source lines and working Privacy / Terms / Contact links.
@@ -151,4 +151,4 @@ End with only this:
 - If the placeholder link was used: "Swap it in with `/swap-link <slug> <your link>`."
 - The publisher name, and: "Rename it to match your domain with `/swap-logo <slug> <name>`."
 - If Settings still has placeholder business details: "Fill your business details in CLAUDE.md Settings, then run `/legal <slug>`."
-- If images are linked from Higgsfield or missing: "Save them into the repo with `/swap-image <slug> all`."
+- If images are linked from muapi or missing: "Save them into the repo with `/swap-image <slug> all`."

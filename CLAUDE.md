@@ -4,8 +4,9 @@
 - **Site URL:** `https://gilliesjarell-commits.github.io/Landers/`
 - **Default traffic:** Facebook + Native (Taboola/Outbrain)
 - **Test budget:** $50 split across 3 angles (~$16.67 each)
-- **Images:** Higgsfield, model `nano_banana_pro` (realistic photos, about 2 credits each). Set to
-  `none` to ship pages with empty image spots you fill yourself.
+- **Images:** muapi.ai, model `nano-banana-pro` (realistic photos; see muapi.ai pricing). Needs
+  your muapi key in the `MUAPI_API_KEY` environment variable. Set to `none` to ship pages with
+  empty image spots you fill yourself.
 - **Legal business name:** `[Your Business LLC]`
 - **Contact email:** `[contact@yourdomain.com]`
 - **Mailing address:** `[Street, City, State ZIP, Country]`
@@ -109,10 +110,14 @@ with empty image spots is only acceptable when Images is `none` in Settings.
 
 The dashboard card for each page shows that page's `<angle>-hero.webp`.
 
-### Making the images (Higgsfield)
-- **Model:** the one in Settings (`nano_banana_pro`), `resolution: "1k"` (web pages don't need more),
-  the aspect ratio from the table. Generate with `generate_image_batch`, at most 12 per call; if
-  some fail with a rate limit (429), wait for the rest with `jobs_wait`, then resubmit only those.
+### Making the images (muapi.ai)
+- **Model:** the one in Settings (`nano-banana-pro`), resolution `1k` (web pages don't need more),
+  the aspect ratio from the table. Write every image as one entry in a jobs file in the scratch
+  folder (never the repo): `[{"prompt": "...", "aspect_ratio": "16:9", "out": "<scratch>/pain-hero.png"}]`,
+  then run `node _tools/muapi-image.mjs <jobs.json>` (add `--model <name>` if Settings names a
+  different muapi model). It submits them, waits, downloads each to its `out` path and prints one
+  JSON line per image (`status`, `url`, `error`). Resubmit only the ones that failed (a rate
+  limit shows as 429).
 - **Every image must look like a real photograph, never an illustration.** Start every prompt with
   the photo recipe for its type, then the scene, then the ending:
   - People and rooms: `Real candid photograph, documentary photojournalism style, shot on a
@@ -126,7 +131,7 @@ The dashboard card for each page shows that page's `<angle>-hero.webp`.
     believable, never stock-photo grins.
   - Always end with: `Not an illustration, not a painting, not CGI, not a 3D render. No text, no
     labels, no logos, no brand names, no watermarks.`
-- **Save small (pop and social traffic is mostly mobile):** download each `result_url` and convert
+- **Save small (pop and social traffic is mostly mobile):** convert each downloaded image
   it to WebP in `<slug>/img/<file>.webp`, under 200 KB each. Max width: 1200 px for 16:9 heroes and
   bands, 1000 px for 3:2 and 4:3 images, 600 px for 1:1 answers. With ImageMagick:
   `magick in.png -resize "1200x>" -strip -quality 78 -define webp:method=6 out.webp`
@@ -135,13 +140,13 @@ The dashboard card for each page shows that page's `<angle>-hero.webp`.
   quality in steps of 6. Never commit the original PNGs.
 - **Look at every image before using it** (open the saved file): reject and regenerate anything
   with borders or bars, readable text or labels, logos, distorted hands or faces, or an
-  illustrated / CGI look. Then show the set to the user with `show_generation_by_ids`.
-- If the image host is blocked (some cloud sessions), put the `result_url` straight into the `src`
-  (use the smaller `_min.webp` version of the URL for 1:1 answers and dashboard thumbnails), add a
-  dashboard notice, and tell the user to allow `d8j0ntlcm91z4.cloudfront.net` or run
-  `/swap-image <slug> all` from their own terminal.
-- If Images is `none` or Higgsfield isn't connected: leave the spots (they show a tinted block,
-  never a broken icon) and add a dashboard notice listing the file names to drop into `img/`.
+  illustrated / CGI look. Then list the set for the user (file names and what each shows).
+- If an image was made but couldn't be downloaded (status `generated_not_downloaded`, some cloud
+  sessions), put its `url` straight into the `src`, add a dashboard notice, and tell the user to
+  allow the image host named in the error, or run `/swap-image <slug> all` from their own terminal.
+- If Images is `none`, `MUAPI_API_KEY` isn't set, or `api.muapi.ai` can't be reached: leave the
+  spots (they show a tinted block, never a broken icon) and add a dashboard notice listing the file
+  names to drop into `img/`.
 
 ### Image ads (matched to the traffic source)
 Every launch also makes ready-to-upload image ads for each of the 3 angles, but only the sizes the

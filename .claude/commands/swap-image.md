@@ -17,14 +17,14 @@ For an image ad, the new photo goes through `node _tools/ad-image.mjs` again (fe
    - **A local file:** convert it to WebP at `<slug>/img/<file>.webp`, under 200 KB, using the sizes
      and commands in "Save small" in CLAUDE.md.
    - **A URL:** download it into `<slug>/img/<file>` the same way.
-   - **Text (a new prompt) or nothing:** generate a new image with Higgsfield (the Settings model,
+   - **Text (a new prompt) or nothing:** generate a new image with `node _tools/muapi-image.mjs` (the Settings model,
      the spot's shape, the photo recipe in CLAUDE.md; no text prompt → write one from the page's
      angle and copy), then save it as WebP under 200 KB and look at it before using it.
    - Make sure the page's `src` points at `img/<file>`.
 3. **`all`:**
-   - Images currently linked from Higgsfield (`src` starting with `https://`): download each into
+   - Images currently linked from muapi (`src` starting with `https://`): download each into
      `<slug>/img/<angle>-<spot>.webp` (WebP, under 200 KB) and point the `src` back at the local file.
-   - Spots with no file in `img/`: generate them with Higgsfield (one batch) and save them.
+   - Spots with no file in `img/`: generate them with `node _tools/muapi-image.mjs` (one jobs file) and save them.
    - With a text prompt after `all`, regenerate every image in that style instead.
    - Update the dashboard card thumbnails and remove its "images linked/missing" notice once every
      image is local.
