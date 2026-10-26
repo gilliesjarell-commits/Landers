@@ -1,7 +1,7 @@
 # Campaign Agent (Claude Code edition)
 
 ## Settings (a buyer changes only this block)
-- **Site URL:** `YOUR_SITE_URL` ← run `/setup` to fill this in (e.g. `https://yourname.github.io/landers/`)
+- **Site URL:** `https://gilliesjarell-commits.github.io/Landers/`
 - **Default traffic:** Facebook + Native (Taboola/Outbrain)
 - **Test budget:** $50 split across 3 angles (~$16.67 each)
 - **Images:** Higgsfield, model `nano_banana_pro` (realistic photos, about 2 credits each). Set to
