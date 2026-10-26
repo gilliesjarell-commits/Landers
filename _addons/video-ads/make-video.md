@@ -1,5 +1,5 @@
 ---
-description: (Video ads add-on) Make UGC-style AI narrator video ads (9:16 + 4:5) for a campaign with Higgsfield, add them to its dashboard, redeploy
+description: (Video ads add-on) Make UGC-style AI narrator video ads (9:16 + 4:5) for a campaign with muapi.ai, add them to its dashboard, redeploy
 argument-hint: <offer-slug> [angle or "all"]
 ---
 
@@ -10,14 +10,15 @@ Follow "Add-on: Video ads" and every compliance rule in CLAUDE.md. Files live in
 ## 1. Check
 - First word = campaign folder (e.g. `home-warranty-2`). Second = one angle (`pain`, `curiosity`,
   `socialproof`, `fear`, `benefit`) or `all` (default: every angle page the campaign has).
-- Higgsfield must be connected: load `generate_image_batch`, `generate_video_batch` and `jobs_wait` with
-  ToolSearch. If it isn't, stop and say so.
+- `MUAPI_API_KEY` must be set and `api.muapi.ai` reachable (everything is generated with
+  `node _tools/muapi-image.mjs`). If not, stop and say so. Generated files go to a scratch folder,
+  never the repo.
 - `ffmpeg -version` must work. If not, tell the user how to install it (macOS `brew install ffmpeg`,
   Windows `winget install ffmpeg`, Linux `sudo apt install ffmpeg`) and stop.
 - Read the campaign's `research.md`, `ad-copy.md` and each angle page so every video matches its lander.
-- Cost: one 15-second clip per angle with the Video model in CLAUDE.md (Kling 3.0: ~26.25 credits), plus
-  ~2 credits for the narrator portrait the first time. Confirm one clip with `get_cost`, say the total in
-  one line, and continue.
+- Cost: one 15-second clip per angle with the Video model in CLAUDE.md, plus one narrator portrait the
+  first time. Say in one line how many clips and images this run makes (prices are on muapi.ai's
+  pricing page for each model), and continue.
 
 ## 2. Script → `<slug>/ads/video/<angle>-script.md`
 One 15-second narrator script per angle, then a 2.5-second end card:
@@ -32,9 +33,11 @@ One 15-second narrator script per angle, then a 2.5-second end card:
   (max 40 characters).
 
 ## 3. Narrator (once per campaign)
-- If `<slug>/ads/video/narrator.txt` exists, reuse the Higgsfield job id inside it, so every angle (and
-  every later run) has the same person.
-- Otherwise generate one 9:16 portrait with the Settings image model: `Real candid photograph framed like a
+- If `<slug>/ads/video/narrator.txt` exists, reuse the image URL inside it, so every angle (and every
+  later run) has the same person. If that URL no longer loads, use the live copy instead:
+  `<Site URL><slug>/ads/video/narrator.webp` (published once the first videos are deployed).
+- Otherwise generate one 9:16 portrait with the Settings image model (one job with
+  `"aspect_ratio": "9:16"` for `node _tools/muapi-image.mjs`): `Real candid photograph framed like a
   vertical smartphone selfie, natural window light, true-to-life colors, real skin texture. <a friendly
   narrator who matches the avatar's age and world, casual clothes> stands in <a lived-in setting that fits
   the niche>, holding the phone at arm's length and looking straight into the camera with a warm, natural
@@ -42,19 +45,21 @@ One 15-second narrator script per angle, then a 2.5-second end card:
   on-screen interface, no overlays, no captions. Not an illustration, not CGI, not a 3D render. No text,
   no logos, no brand names, no watermarks.`
 - Look at it. Regenerate if there's any text or overlay, warped hands or face, or a CGI look. Save it as
-  `<slug>/ads/video/narrator.webp` (600 px wide) and its job id in `narrator.txt`.
+  `<slug>/ads/video/narrator.webp` (1080 px wide, under 300 KB) and the `url` the script printed in
+  `narrator.txt`.
 
 ## 4. Clips
-- One clip per angle: `model` = the Video model in CLAUDE.md (`kling3_0`), `mode: "std"`, `sound: "on"`,
-  `duration: 15`, `aspect_ratio: "9:16"`, `medias: [{ role: "start_image", value: <narrator job id> }]`.
+- One clip per angle, all in one jobs file for `node _tools/muapi-image.mjs`:
+  `{"model": "<Video model in CLAUDE.md>", "prompt": "...", "image_url": "<narrator URL>", "duration": 15,
+  "generate_audio": true, "out": "<scratch>/<angle>-clip.mp4"}`. The clip takes the narrator's 9:16 shape.
 - Prompt: `Vertical selfie-style phone video, realistic and candid. The woman from the image holds the
   phone at arm's length in <setting> and talks straight to the camera in a warm, casual American English
   voice, like explaining something to a friend. She says: "<script>" Natural hand gestures, slight handheld
   camera movement, accurate lip sync. Only her voice and soft room tone, no music. No text or captions on
   screen, no logos.` (Use "the man" / "the person" to match the narrator.)
-- Submit with `generate_video_batch`. If an item comes back with a preset recommendation instead of a job,
-  resubmit it with `declined_preset_id` set to that preset. If it hits a 429, wait for the others with
-  `jobs_wait`, then resubmit just that one. Download each `result_url` to a scratch folder (never the repo).
+- Run it and wait (clips can take several minutes). Resubmit only the clips that failed (a rate limit
+  shows as 429). If a clip shows `generated_not_downloaded`, its host is blocked: tell the user to allow
+  the host named in the error, or run `/make-video` from their own terminal, and stop.
 - **Check every clip:** extract 4 frames and look at them (same person, no text or logos, no warped hands
   or face); confirm it has sound (`ffmpeg -i clip.mp4 -af volumedetect -vn -f null -`). Regenerate a clip
   that fails.
@@ -88,5 +93,5 @@ In `<slug>/index.html`:
 ## 7. Deploy and report
 - `git add <slug>/ads <slug>/index.html`, commit `Add video ads: <slug>`, `git pull --rebase origin main`,
   `git push origin main`.
-- Report: each video's live URL (`<Site URL><slug>/ads/video/<angle>-9x16.mp4`, `-4x5.mp4`), credits used,
-  and the TikTok AI-label reminder.
+- Report: each video's live URL (`<Site URL><slug>/ads/video/<angle>-9x16.mp4`, `-4x5.mp4`), how many
+  clips and images were generated on muapi, and the TikTok AI-label reminder.

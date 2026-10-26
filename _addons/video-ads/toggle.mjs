@@ -33,7 +33,7 @@ if (mode === 'on') {
   const rules = readFileSync(join(here, 'rules.md'), 'utf8').trim();
   writeFileSync(claudeMd, stripBlock(md).trimEnd() + '\n\n' + rules + '\n');
   console.log('Video ads add-on: ON. Added /make-video and the "Add-on: Video ads" rules to CLAUDE.md.');
-  console.log('Needs: Higgsfield connected in Claude Code, and ffmpeg installed (macOS: brew install ffmpeg).');
+  console.log('Needs: MUAPI_API_KEY set (muapi.ai), and ffmpeg installed (macOS: brew install ffmpeg).');
   console.log('Restart Claude Code, then run: /make-video <offer-slug>');
 } else if (mode === 'off') {
   if (existsSync(cmdDst)) rmSync(cmdDst);

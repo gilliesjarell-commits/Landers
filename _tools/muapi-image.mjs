@@ -1,11 +1,15 @@
 #!/usr/bin/env node
-// Generate images with muapi.ai (no installs; needs Node 18+).
+// Generate images (and video clips) with muapi.ai (no installs; needs Node 18+).
 //
 //   node _tools/muapi-image.mjs <jobs.json> [--model nano-banana-pro] [--resolution 1k]
 //
-// jobs.json is a list of images to make:
+// jobs.json is a list of things to make:
 //   [{ "prompt": "...", "aspect_ratio": "16:9", "out": "/scratch/pain-hero.png" }, ...]
 // "out" is where the original download goes (a scratch folder, never the repo).
+// A job can name its own muapi "model"; every other field is sent to that model as-is, e.g. a video:
+//   { "model": "kling-v3.0-standard-image-to-video", "prompt": "...", "image_url": "https://...",
+//     "duration": 15, "generate_audio": true, "out": "/scratch/pain-clip.mp4" }
+// --resolution only applies to jobs that use the default (--model) image model.
 // The API key comes from MUAPI_API_KEY (or MUAPI_KEY). Get one at https://muapi.ai/access-keys
 //
 // Prints one JSON line per job: { out, status, url, request_id, error }.
@@ -15,10 +19,9 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
 const BASE = 'https://api.muapi.ai/api/v1';
-const RATIOS = ['1:1', '3:4', '4:3', '9:16', '16:9', '3:2', '2:3', '5:4', '4:5', '21:9'];
 const CONCURRENCY = 4;
 const POLL_MS = 3000;
-const TIMEOUT_MS = 5 * 60 * 1000;
+const TIMEOUT_MS = 15 * 60 * 1000; // video clips can take several minutes
 
 const args = process.argv.slice(2);
 const flag = (name, def) => {
@@ -61,9 +64,12 @@ async function runJob(job) {
   const result = { out: job.out, status: 'failed', url: null, request_id: null, error: null };
   try {
     if (!job.prompt || !job.out) throw new Error('each job needs "prompt" and "out"');
-    const aspect = job.aspect_ratio || '1:1';
-    if (!RATIOS.includes(aspect)) throw new Error(`aspect_ratio must be one of ${RATIOS.join(', ')}`);
-    const submit = await api('POST', `/${model}`, { prompt: job.prompt, aspect_ratio: aspect, resolution });
+    const { out, model: jobModel, ...input } = job;
+    if (!jobModel) {
+      input.aspect_ratio ??= '1:1';
+      input.resolution ??= resolution;
+    }
+    const submit = await api('POST', `/${jobModel || model}`, input);
     const id = submit.request_id || submit.id || submit.data?.request_id;
     if (!id) throw new Error('no request_id in response: ' + JSON.stringify(submit).slice(0, 200));
     result.request_id = id;
@@ -79,7 +85,7 @@ async function runJob(job) {
         break;
       }
       if (d.status === 'failed') throw new Error(d.error || 'generation failed');
-      if (Date.now() - start > TIMEOUT_MS) throw new Error('timed out after 5 minutes');
+      if (Date.now() - start > TIMEOUT_MS) throw new Error('timed out after 15 minutes');
     }
 
     try {
@@ -89,7 +95,7 @@ async function runJob(job) {
       await writeFile(job.out, Buffer.from(await img.arrayBuffer()));
       result.status = 'saved';
     } catch (e) {
-      // Image made, but its host is blocked here: the URL can be used directly.
+      // File made, but its host is blocked here: the URL can be used directly.
       result.status = 'generated_not_downloaded';
       result.error = 'download failed: ' + e.message;
     }

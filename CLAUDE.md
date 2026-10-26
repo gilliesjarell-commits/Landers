@@ -132,7 +132,7 @@ The dashboard card for each page shows that page's `<angle>-hero.webp`.
   - Always end with: `Not an illustration, not a painting, not CGI, not a 3D render. No text, no
     labels, no logos, no brand names, no watermarks.`
 - **Save small (pop and social traffic is mostly mobile):** convert each downloaded image
-  it to WebP in `<slug>/img/<file>.webp`, under 200 KB each. Max width: 1200 px for 16:9 heroes and
+  to WebP in `<slug>/img/<file>.webp`, under 200 KB each. Max width: 1200 px for 16:9 heroes and
   bands, 1000 px for 3:2 and 4:3 images, 600 px for 1:1 answers. With ImageMagick:
   `magick in.png -resize "1200x>" -strip -quality 78 -define webp:method=6 out.webp`
   (`convert` on older installs; on a Mac without ImageMagick: `brew install webp`, then
@@ -257,7 +257,7 @@ starting with `_` are never published.
 
 **Optional add-on: video ads** (`_addons/video-ads/`, off unless its rules block appears at the end of
 this file). If the user asks for video ads while it's off, say it's an add-on, what it makes (UGC-style
-narrator videos for TikTok, Reels and the Meta feed, ~26 Higgsfield credits per angle) and how to turn
+narrator videos for TikTok, Reels and the Meta feed, one muapi.ai Kling 3.0 clip per angle) and how to turn
 it on: `node _addons/video-ads/toggle.mjs on`, then restart Claude Code. Don't mention it otherwise.
 
 

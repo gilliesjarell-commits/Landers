@@ -13,18 +13,20 @@ captions. The main Campaign Agent works the same with or without it.
 - A script file with 3 hook options, the narrator script, a TikTok caption (max 100 characters), and Meta
   primary text and headline. All of it also shows on the dashboard with Copy buttons.
 
-## Cost (Higgsfield credits)
-| Item | Credits |
+## Cost (muapi.ai)
+| Item | What's generated |
 | --- | --- |
-| Narrator portrait (once per campaign, reused) | ~2 |
-| One angle (one 15-second Kling 3.0 clip with voice) | ~26 |
-| A whole campaign (3 angles) | ~81 |
+| Narrator portrait (once per campaign, reused) | 1 Nano Banana Pro image |
+| One angle | 1 Kling 3.0 clip, 15 seconds with voice |
+| A whole campaign (3 angles) | 3 clips + 1 portrait |
 
-Clips that fail the visual check are regenerated, so budget a little extra. The model is one line in the
-add-on's rules (`Video model:`); `veo3_1_lite` is the alternative (~24 per angle, two 8-second clips).
+Prices are on muapi.ai's pricing page for each model. Clips that fail the visual check are regenerated,
+so budget a little extra. The model is one line in the add-on's rules (`Video model:`);
+`kling-v3.0-pro-image-to-video` is the higher-quality alternative.
 
 ## Requirements
-- **Higgsfield** connected in Claude Code (claude.ai connector or MCP).
+- A **muapi.ai** API key in the `MUAPI_API_KEY` environment variable (get one at https://muapi.ai/access-keys).
+  Cloud sessions also need `api.muapi.ai` and its file host allowed under Network access.
 - **ffmpeg** installed: macOS `brew install ffmpeg`, Windows `winget install ffmpeg`, Linux `sudo apt install ffmpeg`.
 - Node.js (already installed with Claude Code).
 
