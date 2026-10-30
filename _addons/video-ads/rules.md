@@ -1,7 +1,7 @@
 <!-- ADDON:video-ads (added by `node _addons/video-ads/toggle.mjs on`; removed by `... off`) -->
 ## Add-on: Video ads (on)
-- **Video model:** `kling-v3.0-standard-image-to-video` on muapi.ai (Kling 3.0, standard, 15 s, sound on).
-  Change this line to switch models (e.g. `kling-v3.0-pro-image-to-video` for higher quality).
+- **Video model:** the Video model in Settings (switch it with `/models`), or one named for a single
+  `/make-video` run. It must be a model with a voice (the video list in `/models`).
 - **Make videos at launch:** no. `/launch-offer` never makes videos itself.
 - **After every launch:** end the `/launch-offer` report with: "Make video ads with `/make-video <slug>`."
 - `/make-video <slug> [angle or all]` makes one UGC-style video per angle: an AI narrator talks to camera

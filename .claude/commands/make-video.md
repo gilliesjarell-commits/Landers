@@ -1,6 +1,6 @@
 ---
 description: (Video ads add-on) Make UGC-style AI narrator video ads (9:16 + 4:5) for a campaign with muapi.ai, add them to its dashboard, redeploy
-argument-hint: <offer-slug> [angle or "all"]
+argument-hint: <offer-slug> [angle or "all"] [video model <name>]
 ---
 
 Make video ads for: $ARGUMENTS
@@ -10,6 +10,9 @@ Follow "Add-on: Video ads" and every compliance rule in CLAUDE.md. Files live in
 ## 1. Check
 - First word = campaign folder (e.g. `home-warranty-2`). Second = one angle (`pain`, `curiosity`,
   `socialproof`, `fear`, `benefit`) or `all` (default: every angle page the campaign has).
+- `video model <name>` (or `image model <name>` for the narrator portrait) uses that model for this
+  run only. Otherwise use the Video model and Image model in CLAUDE.md Settings. Check the name is in
+  `node _tools/muapi-image.mjs --list`; if not, say it isn't a tested choice and ask before using it.
 - `MUAPI_API_KEY` must be set and `api.muapi.ai` reachable (everything is generated with
   `node _tools/muapi-image.mjs`). If not, stop and say so. Generated files go to a scratch folder,
   never the repo.
@@ -49,9 +52,12 @@ One 15-second narrator script per angle, then a 2.5-second end card:
   `narrator.txt`.
 
 ## 4. Clips
-- One clip per angle, all in one jobs file for `node _tools/muapi-image.mjs`:
-  `{"model": "<Video model in CLAUDE.md>", "prompt": "...", "image_url": "<narrator URL>", "duration": 15,
-  "generate_audio": true, "out": "<scratch>/<angle>-clip.mp4"}`. The clip takes the narrator's 9:16 shape.
+- One clip per angle, all in one jobs file for `node _tools/muapi-image.mjs --video-model <video model>`:
+  `{"kind": "video", "prompt": "...", "image": "<narrator URL>", "seconds": 15, "aspect_ratio": "9:16",
+  "out": "<scratch>/<angle>-clip.mp4"}`. The script fits it to the model (clip length, sound, image field).
+- **Models with shorter clips** (the `used.seconds` in the output, e.g. Veo 3.1 makes 8 s): split each
+  script into 2 parts of about equal length, make 2 clips per angle from the same narrator image, and
+  give both clips to the render spec in order (each with its own `seconds` and captions).
 - Prompt: `Vertical selfie-style phone video, realistic and candid. The woman from the image holds the
   phone at arm's length in <setting> and talks straight to the camera in a warm, casual American English
   voice, like explaining something to a friend. She says: "<script>" Natural hand gestures, slight handheld
@@ -68,8 +74,8 @@ One 15-second narrator script per angle, then a 2.5-second end card:
 
 ## 5. Assemble
 Write a spec JSON in the scratch folder (format at the top of `_addons/video-ads/render.mjs`):
-`out` = `<slug>/ads/video/<angle>`, `"clipAudio": true`, `"captionPosition": "lower"`, the clip with
-`"seconds": 15` and one timed caption per sentence (`from`/`to` from the pauses), and the end card
+`out` = `<slug>/ads/video/<angle>`, `"clipAudio": true`, `"captionPosition": "lower"`, the clip (or
+clips) with their real length in `"seconds"` and one timed caption per sentence (`from`/`to` from the pauses), and the end card
 (publisher name, the lander's promise as the headline, CTA "Tap the button below", `bg` = the logo's brand
 color, `accent` = the angle page's accent color). Run:
 ```
@@ -94,4 +100,4 @@ In `<slug>/index.html`:
 - `git add <slug>/ads <slug>/index.html`, commit `Add video ads: <slug>`, `git pull --rebase origin main`,
   `git push origin main`.
 - Report: each video's live URL (`<Site URL><slug>/ads/video/<angle>-9x16.mp4`, `-4x5.mp4`), how many
-  clips and images were generated on muapi, and the TikTok AI-label reminder.
+  clips and images were generated on muapi and with which models, and the TikTok AI-label reminder.

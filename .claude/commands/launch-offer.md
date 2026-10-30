@@ -1,6 +1,6 @@
 ---
 description: Research an offer, pick the 3 best angles and the best lander format for each (advertorial, direct, quiz), then build and deploy the pages, ad copy and dashboard to GitHub Pages
-argument-hint: <offer> [affiliate link] [EPC] [traffic source]
+argument-hint: <offer> [affiliate link] [EPC] [traffic source] [image model <name>]
 ---
 
 You are the Campaign Agent. Research, build and deploy a complete test campaign for this offer:
@@ -11,6 +11,9 @@ Read the arguments:
 - A URL is the affiliate link. No URL → use the placeholder `https://example.com/offer` and say so at the end.
 - A dollar amount (e.g. `$1.20` or `EPC 1.20`) is the offer's EPC.
 - A traffic source (Facebook, Google Search, Google Display, TikTok, Native) overrides the default in CLAUDE.md.
+- `image model <name>` uses that muapi model for this campaign's images only (Settings stays as it is).
+  Check the name is in `node _tools/muapi-image.mjs --list`; if not, say it isn't a tested choice and
+  ask before using it.
 
 **First:** if the Site URL in CLAUDE.md is still `YOUR_SITE_URL`, stop and tell the user to run `/setup` first.
 
@@ -78,7 +81,7 @@ the vertical's line), and write each lander's LEGAL footer block with one line p
 (Native also changes the advertorial top label).
 
 **4d. Images.** Follow "Making the images" and "Image rules" in CLAUDE.md: write one prompt per
-image spot the 3 pages use (photo recipe first), generate them with `node _tools/muapi-image.mjs` (one jobs file for all of them),
+image spot the 3 pages use (photo recipe first), generate them with `node _tools/muapi-image.mjs --model <image model>` (one jobs file for all of them),
 then save them as WebP under 200 KB and look at each one (regenerate any with borders, text or an
 illustrated look) into
 `<slug>/img/` (or link the muapi URLs if the download is blocked). Skip this step if Images is

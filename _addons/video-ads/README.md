@@ -21,8 +21,8 @@ captions. The main Campaign Agent works the same with or without it.
 | A whole campaign (3 angles) | 3 clips + 1 portrait |
 
 Prices are on muapi.ai's pricing page for each model. Clips that fail the visual check are regenerated,
-so budget a little extra. The model is one line in the add-on's rules (`Video model:`);
-`kling-v3.0-pro-image-to-video` is the higher-quality alternative.
+so budget a little extra. Pick the video model with `/models` (it lists every model with a voice), or for one run:
+`/make-video <slug> video model <name>`. Models with 8-second clips (Veo 3.1) make 2 clips per angle.
 
 ## Requirements
 - A **muapi.ai** API key in the `MUAPI_API_KEY` environment variable (get one at https://muapi.ai/access-keys).

@@ -1,6 +1,6 @@
 ---
 description: Replace one image on a campaign, or regenerate / save all of them, then redeploy
-argument-hint: <offer-slug> <image file name or "all"> [image file, URL, or new prompt]
+argument-hint: <offer-slug> <image file name or "all"> [image file, URL, or new prompt] [image model <name>]
 ---
 
 Swap images for an existing campaign: $ARGUMENTS
@@ -17,7 +17,8 @@ For an image ad, the new photo goes through `node _tools/ad-image.mjs` again (fe
    - **A local file:** convert it to WebP at `<slug>/img/<file>.webp`, under 200 KB, using the sizes
      and commands in "Save small" in CLAUDE.md.
    - **A URL:** download it into `<slug>/img/<file>` the same way.
-   - **Text (a new prompt) or nothing:** generate a new image with `node _tools/muapi-image.mjs` (the Settings model,
+   - **Text (a new prompt) or nothing:** generate a new image with `node _tools/muapi-image.mjs` (the Image model in Settings, or the one
+     named with `image model <name>` for this run,
      the spot's shape, the photo recipe in CLAUDE.md; no text prompt → write one from the page's
      angle and copy), then save it as WebP under 200 KB and look at it before using it.
    - Make sure the page's `src` points at `img/<file>`.

@@ -4,9 +4,13 @@
 - **Site URL:** `https://gilliesjarell-commits.github.io/Landers/`
 - **Default traffic:** Facebook + Native (Taboola/Outbrain)
 - **Test budget:** $50 split across 3 angles (~$16.67 each)
-- **Images:** muapi.ai, model `nano-banana-pro` (realistic photos; see muapi.ai pricing). Needs
-  your muapi key in the `MUAPI_API_KEY` environment variable. Set to `none` to ship pages with
-  empty image spots you fill yourself.
+- **Images:** muapi.ai (see muapi.ai pricing). Needs your muapi key in the `MUAPI_API_KEY`
+  environment variable. Set to `none` to ship pages with empty image spots you fill yourself.
+- **Image model:** `nano-banana-pro`
+- **Video model:** `kling-v3.0-standard-image-to-video` (used by the video ads add-on)
+  (Run `/models` to see every choice and switch. To use a different model for one run only, add it
+  to the command, e.g. `/launch-offer <offer> <link> image model flux-2-pro` or
+  `/make-video <slug> video model veo3.1-fast-image-to-video`.)
 - **Legal business name:** `[Your Business LLC]`
 - **Contact email:** `[contact@yourdomain.com]`
 - **Mailing address:** `[Street, City, State ZIP, Country]`
@@ -111,13 +115,16 @@ with empty image spots is only acceptable when Images is `none` in Settings.
 The dashboard card for each page shows that page's `<angle>-hero.webp`.
 
 ### Making the images (muapi.ai)
-- **Model:** the one in Settings (`nano-banana-pro`), resolution `1k` (web pages don't need more),
-  the aspect ratio from the table. Write every image as one entry in a jobs file in the scratch
-  folder (never the repo): `[{"prompt": "...", "aspect_ratio": "16:9", "out": "<scratch>/pain-hero.png"}]`,
-  then run `node _tools/muapi-image.mjs <jobs.json>` (add `--model <name>` if Settings names a
-  different muapi model). It submits them, waits, downloads each to its `out` path and prints one
-  JSON line per image (`status`, `url`, `error`). Resubmit only the ones that failed (a rate
-  limit shows as 429).
+- **Model:** the Image model in Settings, or the one the user named for this run (a run-only choice
+  is never saved to Settings). The aspect ratio comes from the table. Write every image as one entry
+  in a jobs file in the scratch folder (never the repo):
+  `[{"prompt": "...", "aspect_ratio": "16:9", "out": "<scratch>/pain-hero.png"}]`, then run
+  `node _tools/muapi-image.mjs <jobs.json> --model <image model>`. It fits each job to the model
+  (models and their settings are in `_tools/muapi-models.json`; a shape the model can't make becomes
+  its closest one, shown under `used`), submits them, waits, downloads each to its `out` path and
+  prints one JSON line per image (`status`, `url`, `error`). Resubmit only the ones that failed (a
+  rate limit shows as 429). A model name that isn't in the list is sent as-is: check its fields on
+  muapi.ai first.
 - **Every image must look like a real photograph, never an illustration.** Start every prompt with
   the photo recipe for its type, then the scene, then the ending:
   - People and rooms: `Real candid photograph, documentary photojournalism style, shot on a
@@ -195,6 +202,7 @@ campaign's traffic can use:
 | `/swap-link <slug> <link>` | Puts the real affiliate link on every CTA and quiz redirect |
 | `/swap-logo <slug> <Name or domain> [logo file]` | Renames the publisher on every page and rebuilds or replaces `img/logo.svg` |
 | `/swap-image <slug> <file or all> [image file, URL or new prompt]` | Replaces one image spot, or regenerates / downloads them all |
+| `/models [image|video] [name]` | Lists the muapi.ai image and video models and switches the one in Settings |
 | `/legal <slug or all> [traffic sources]` | Fills the Privacy Policy and Terms from Settings, and rewrites each page's LEGAL footer block for its traffic sources |
 
 ## Legal pages and disclaimers
@@ -288,8 +296,8 @@ GitHub Pages rebuilds automatically.
 
 <!-- ADDON:video-ads (added by `node _addons/video-ads/toggle.mjs on`; removed by `... off`) -->
 ## Add-on: Video ads (on)
-- **Video model:** `kling-v3.0-standard-image-to-video` on muapi.ai (Kling 3.0, standard, 15 s, sound on).
-  Change this line to switch models (e.g. `kling-v3.0-pro-image-to-video` for higher quality).
+- **Video model:** the Video model in Settings (switch it with `/models`), or one named for a single
+  `/make-video` run. It must be a model with a voice (the video list in `/models`).
 - **Make videos at launch:** no. `/launch-offer` never makes videos itself.
 - **After every launch:** end the `/launch-offer` report with: "Make video ads with `/make-video <slug>`."
 - `/make-video <slug> [angle or all]` makes one UGC-style video per angle: an AI narrator talks to camera

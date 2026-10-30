@@ -11,6 +11,7 @@ ad copy for Meta and native, and a dashboard linking everything together.
 | `.claude/commands/swap-link.md` | The `/swap-link` command: puts the real affiliate link on a campaign and redeploys. |
 | `.claude/commands/swap-logo.md` | The `/swap-logo` command: renames the generic publisher (e.g. to match your domain) and swaps the logo. |
 | `.claude/commands/swap-image.md` | The `/swap-image` command: replaces one image, or regenerates / saves them all. |
+| `.claude/commands/models.md` | The `/models` command: lists the muapi.ai image and video models and switches the one every campaign uses. |
 | `.claude/commands/legal.md` | The `/legal` command: fills the Privacy Policy and Terms from your business details and updates the traffic-source disclaimers. |
 | `templates/` | The 3 lander formats (advertorial, direct, quiz), the dashboard, and the sample logo in `templates/img/`. |
 | `<offer>/` | One folder per campaign (e.g. `auto-insurance/`). |
@@ -39,7 +40,7 @@ test-ready without tweaks.
 - **Logo:** each campaign gets a made-up publisher name (e.g. "The Homekeeping Desk") and one logo
   file, `<offer>/img/logo.svg`, used on all 3 pages. When you buy a domain, rename it:
   `/swap-logo home-warranty-2 homekeepingdesk.com` (add a logo file path to use your own artwork).
-- **Images:** generated with muapi.ai Nano Banana Pro (8–14 per campaign; needs your key in `MUAPI_API_KEY`, from https://muapi.ai/access-keys), compressed to WebP under 200KB and saved in
+- **Images:** generated with muapi.ai, Nano Banana Pro unless you pick another model with `/models` (8–14 per campaign; needs your key in `MUAPI_API_KEY`, from https://muapi.ai/access-keys), compressed to WebP under 200KB and saved in
   `<offer>/img/`. File names and shapes are listed in CLAUDE.md under "Image spots".
   - Replace one: `/swap-image home-warranty-2 pain-hero.webp ~/Downloads/my-photo.jpg`
   - Regenerate one with a new idea: `/swap-image home-warranty-2 pain-hero.webp a family relaxing in a cool living room`

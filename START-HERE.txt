@@ -11,6 +11,7 @@ What's in this folder:
   .claude/commands/swap-link.md      /swap-link     change the affiliate link on a campaign
   .claude/commands/swap-logo.md      /swap-logo     rename the publisher / swap the logo
   .claude/commands/swap-image.md     /swap-image    replace or regenerate images and image ads
+  .claude/commands/models.md         /models        choose the image and video models (muapi.ai)
   .claude/commands/legal.md          /legal         fill the Privacy Policy and Terms, update disclaimers
   templates/                         Advertorial, Direct, Quiz, dashboard, Privacy and Terms templates
   _tools/                            The image-ad builder (used automatically)
