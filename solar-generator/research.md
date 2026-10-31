@@ -8,6 +8,24 @@
 - **Offer:** solar generator, through the affiliate link below. The offer page wasn't opened (opening the
   tracking link would record a click), so the pages don't describe the product's brand, size, price or
   specs. They presell the category and send people to the offer page for the details.
+- **Offer identified (user shared the landing page):** 4Patriots **Patriot Power Generator 2200X**
+  (https://products.4patriots.com/power/generator-22x/biggest-battery-ever). From published reviews,
+  not the offer page itself (blocked in the launch session): about 2,240 Wh LiFePO4 battery, about
+  2,200 W continuous output, 10 outlets and ports, sold as a bundle with a 200 W solar panel, roughly
+  57 lb, silent and fume-free per its manual. Launch price about $2,999.95 for the bundle (AndroidGuys).
+  Reviewers praise build and capacity, and criticize weight, only 4 AC outlets and charging speed.
+  - **Fit with the pages:** good. Quiet, no fumes, solar recharge, and keeping the fridge, lights and
+    Wi-Fi going all match what the product is. The pages make no spec, price or runtime claims, so
+    nothing needs changing. They don't name the brand (bridge-page rule).
+  - **Price:** about $3,000 is a considered purchase. Expect the offer page to do the selling; the
+    bridge pages only need to send warm, curious clicks.
+  - **Audience:** 4Patriots sells preparedness products to an older, self-reliant, mostly rural and
+    suburban US audience. That skews the avatar older (roughly 50–75) than the 30–65 range below, and
+    favors Facebook over TikTok for this offer.
+  - **Social Proof:** still skipped. The offer page may show customer reviews, but they couldn't be
+    checked from this session. If the user confirms published review numbers, Social Proof becomes an option.
+  - Sources: https://geardiary.com/2026/01/20/patriot-power-generator-2200x-review/ ,
+    https://androidguys.com/news/4patriots-launches-2200x-completes-solar-generator-lineup
 - **EPC:** $1.69 (from the user; information only).
 - **Affiliate link:** `https://afflat3e1.com/trk/lnk/5531C00A-712E-4ABF-A234-CC63ACF75F16/?o=31558&c=918277&a=794976&k=B35EE24D4BCADACAA2946DD48B0DD63A&l=37137`
   plus `&sub=<angle>` on each page.
