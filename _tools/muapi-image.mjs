@@ -21,6 +21,15 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
+
+// Behind a proxy (e.g. cloud sessions), Node's fetch ignores HTTPS_PROXY unless NODE_USE_ENV_PROXY=1
+// is set at startup, so restart once with it.
+if ((process.env.HTTPS_PROXY || process.env.https_proxy) && !process.env.NODE_USE_ENV_PROXY) {
+  const r = spawnSync(process.execPath, ['--no-warnings', ...process.argv.slice(1)], {
+    stdio: 'inherit', env: { ...process.env, NODE_USE_ENV_PROXY: '1' } });
+  process.exit(r.status ?? 1);
+}
 
 const BASE = 'https://api.muapi.ai/api/v1';
 const CONCURRENCY = 4;
