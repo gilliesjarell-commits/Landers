@@ -64,8 +64,14 @@ One 15-second narrator script per angle, then a 2.5-second end card:
   camera movement, accurate lip sync. Only her voice and soft room tone, no music. No text or captions on
   screen, no logos.` (Use "the man" / "the person" to match the narrator.)
 - Run it and wait (clips can take several minutes). Resubmit only the clips that failed (a rate limit
-  shows as 429). If a clip shows `generated_not_downloaded`, its host is blocked: tell the user to allow
-  the host named in the error, or run `/make-video` from their own terminal, and stop.
+  shows as 429). If a clip or the portrait shows `generated_not_downloaded` (cloud session), fetch them
+  with the GitHub Actions instead: the portrait as a normal job in `_tools/fetch-jobs.json` (saved to
+  `<slug>/ads/video/narrator.webp`, width 1080), the clips with
+  `{"branch": "fetched-files", "jobs": [{"url": ..., "raw": true, "out": "_fetched/<angle>-clip.mp4"}]}`,
+  then `git fetch origin fetched-files` and `git show origin/fetched-files:_fetched/<file> > <scratch>/<file>`.
+  To time captions, also push `_tools/transcribe-jobs.json` (`[{"url": ..., "name": "<angle>"}]`): the
+  "Transcribe clips" Action writes word timings to `_tools/transcripts/<angle>.json`. Check the transcript
+  matches the script, caption what was actually said, and delete `_tools/transcripts/` afterwards.
 - **Check every clip:** extract 4 frames and look at them (same person, no text or logos, no warped hands
   or face); confirm it has sound (`ffmpeg -i clip.mp4 -af volumedetect -vn -f null -`). Regenerate a clip
   that fails.
