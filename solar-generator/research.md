@@ -97,8 +97,7 @@ Benefit `#15803d`.
 - Meta Advertising Standards: https://transparency.meta.com/policies/ad-standards/
 
 ## Generated images (muapi.ai, nano-banana-pro)
-The image host `cdn.muapi.ai` was blocked in the launch session, so the pages link these URLs directly.
-`/swap-image solar-generator all` downloads them into `img/` (and builds the ad images from the `-ad` photos).
+The image host `cdn.muapi.ai` was blocked in the launch session, so the "Fetch images" GitHub Action downloaded them into `img/` and built the ad images in `ads/img/` from the `-ad` photos (headlines: "A quieter plan for the next outage", "Still counting on a gas generator?", "Keep the lights on in the next outage").
 
 | Spot | URL |
 | --- | --- |

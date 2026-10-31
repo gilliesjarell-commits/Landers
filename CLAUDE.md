@@ -149,8 +149,13 @@ The dashboard card for each page shows that page's `<angle>-hero.webp`.
   with borders or bars, readable text or labels, logos, distorted hands or faces, or an
   illustrated / CGI look. Then list the set for the user (file names and what each shows).
 - If an image was made but couldn't be downloaded (status `generated_not_downloaded`, some cloud
-  sessions), put its `url` straight into the `src`, add a dashboard notice, and tell the user to
-  allow the image host named in the error, or run `/swap-image <slug> all` from their own terminal.
+  sessions): write every image (and every image ad) as a job in `_tools/fetch-jobs.json` (format at
+  the top of `_tools/fetch-images.mjs`), commit and push it to `main`. The "Fetch images" GitHub
+  Action downloads them on GitHub's servers, saves the WebP files and image ads into the repo and
+  commits them (about 2 minutes). Wait for its "Save fetched images" commit, pull, look at every
+  image, point the pages at the local files and push. Only if the Action can't run: put each `url`
+  straight into the `src`, add a dashboard notice, and tell the user to run `/swap-image <slug> all`
+  from their own terminal.
 - If Images is `none`, `MUAPI_API_KEY` isn't set, or `api.muapi.ai` can't be reached: leave the
   spots (they show a tinted block, never a broken icon) and add a dashboard notice listing the file
   names to drop into `img/`.
