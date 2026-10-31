@@ -8,7 +8,10 @@
 // jobs.json:
 //   [ { "url": "https://...png", "out": "my-offer/img/pain-hero.webp", "width": 1200 },
 //     { "url": "https://...png", "ad": "feed", "out": "my-offer/ads/img/pain", "headline": "...", "publisher": "..." },
-//     { "url": "https://...png", "ad": "native", "out": "my-offer/ads/img/pain" } ]
+//     { "url": "https://...png", "ad": "native", "out": "my-offer/ads/img/pain" },
+//     { "url": "https://...mp4", "raw": true, "out": "_fetched/pain-clip.mp4" } ]      (saved as-is)
+// Or { "branch": "fetched-files", "jobs": [ ... ] }: the Action then commits the files to that branch
+// (replacing it) instead of main. Use it for big raw files like video clips; delete the branch after use.
 // Widths: 1200 for 16:9 heroes and bands, 1000 for 3:2 and 4:3, 600 for 1:1 answers.
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, statSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs';
@@ -21,7 +24,8 @@ let IM = null;
 for (const bin of ['magick', 'convert']) { try { execFileSync(bin, ['-version'], { stdio: 'ignore' }); IM = bin; break; } catch {} }
 if (!IM) { console.error('ImageMagick not found'); process.exit(1); }
 
-const jobs = JSON.parse(readFileSync(process.argv[2], 'utf8'));
+const spec = JSON.parse(readFileSync(process.argv[2], 'utf8'));
+const jobs = Array.isArray(spec) ? spec : spec.jobs;
 const tmp = mkdtempSync(join(tmpdir(), 'fetch-'));
 let failed = 0;
 for (const [i, j] of jobs.entries()) {
@@ -30,7 +34,11 @@ for (const [i, j] of jobs.entries()) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const raw = join(tmp, `${i}.png`);
     writeFileSync(raw, Buffer.from(await res.arrayBuffer()));
-    if (j.ad) {
+    if (j.raw) {
+      mkdirSync(dirname(j.out), { recursive: true });
+      writeFileSync(j.out, readFileSync(raw));
+      console.log(`${j.out}  ${(statSync(j.out).size / 1024).toFixed(0)} KB`);
+    } else if (j.ad) {
       const args = [join(here, 'ad-image.mjs'), j.ad, raw, j.out];
       if (j.ad === 'feed') args.push(j.headline, j.publisher);
       execFileSync(process.execPath, args, { stdio: 'inherit' });

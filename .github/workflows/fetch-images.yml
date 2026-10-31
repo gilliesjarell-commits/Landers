@@ -24,13 +24,30 @@ jobs:
       - name: Download and convert
         run: |
           [ -f _tools/fetch-jobs.json ] || { echo "No _tools/fetch-jobs.json"; exit 0; }
+          echo "BRANCH=$(node -e "const j=require('./_tools/fetch-jobs.json');console.log(Array.isArray(j)?'':(j.branch||''))")" >> "$GITHUB_ENV"
           node _tools/fetch-images.mjs _tools/fetch-jobs.json
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm -q --ignore-unmatch _tools/fetch-jobs.json
-          git add -A
-          git diff --cached --quiet || git commit -m "Save fetched images"
-          git pull --rebase -q origin main
-          git push -q origin HEAD:main
+          if [ -n "$BRANCH" ]; then
+            OUTS=$(node -e "require('./_tools/fetch-jobs.json').jobs.forEach(j=>console.log(j.out))")
+            mkdir -p /tmp/fetched
+            for f in $OUTS; do mkdir -p "/tmp/fetched/$(dirname "$f")"; cp "$f" "/tmp/fetched/$f"; rm -f "$f"; done
+            git rm -q _tools/fetch-jobs.json
+            git commit -q -m "Fetched files are on branch $BRANCH"
+            git pull --rebase -q origin main
+            git push -q origin HEAD:main
+            git checkout -q --orphan "$BRANCH"
+            git rm -rq --cached . && git clean -fdq
+            cp -r /tmp/fetched/. .
+            git add -A
+            git commit -q -m "Fetched files"
+            git push -q -f origin "HEAD:$BRANCH"
+          else
+            git rm -q --ignore-unmatch _tools/fetch-jobs.json
+            git add -A
+            git diff --cached --quiet || git commit -m "Save fetched images"
+            git pull --rebase -q origin main
+            git push -q origin HEAD:main
+          fi
