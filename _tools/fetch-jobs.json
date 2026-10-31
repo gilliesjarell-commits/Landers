@@ -1,0 +1,88 @@
+[
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/3988cf3d-7c72-413d-8214-b8fbbbc1271a_c75db23d.png",
+  "out": "solar-generator/img/pain-inline-2.webp",
+  "width": 1000
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/0cd542c3-6033-4596-84d5-a3078331eb55_a25d8045.png",
+  "out": "solar-generator/img/curiosity-hero.webp",
+  "width": 1200
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/d3940a3a-7858-412e-bc37-436fe467a4be_3909ec14.png",
+  "out": "solar-generator/img/pain-inline-1.webp",
+  "width": 1000
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/e7553628-1b2a-4fd5-97ff-c082511cc3a7_0d6dcfa2.png",
+  "out": "solar-generator/img/pain-hero.webp",
+  "width": 1200
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/857d4c81-3925-4bb2-b86e-0913eca7e62b_88711869.png",
+  "out": "solar-generator/img/curiosity-answer-2.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/11772e8b-a10f-4686-8189-c006e5b0ea30_f569890b.png",
+  "out": "solar-generator/img/curiosity-answer-1.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/c64ae1ab-4d74-4ac6-b5ac-5a9154553f1e_228ff7fe.png",
+  "out": "solar-generator/img/curiosity-answer-3.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/6b68900c-9017-4734-a4e5-e03625a8de02_b6facc74.png",
+  "out": "solar-generator/img/curiosity-answer-4.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/b2834180-869b-4f99-89ec-9df809e4083c_481aef9b.png",
+  "out": "solar-generator/img/benefit-answer-1.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/3b13a306-b698-4cc0-ab3b-763aa256672b_bd027504.png",
+  "out": "solar-generator/img/benefit-hero.webp",
+  "width": 1200
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/e286e37b-e8a1-44ce-9595-b3b82d1b8975_dd8832bb.png",
+  "out": "solar-generator/img/benefit-answer-2.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/8135fe6d-fbfc-49a5-b2bd-45150d515c13_affaccec.png",
+  "out": "solar-generator/img/benefit-answer-3.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/6eeccbf9-7cc5-4a11-a3bc-2e94340721a2_3f24a5fa.png",
+  "out": "solar-generator/img/benefit-answer-4.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/5f2ddb9c-401a-4b3e-87ab-1f26ca6079f1_ff25d8dd.png",
+  "ad": "feed",
+  "out": "solar-generator/ads/img/pain",
+  "headline": "A quieter plan for the next outage",
+  "publisher": "The Home Power Desk"
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/d82dccf7-dbe1-4d74-9e31-2ee9c8fec36e_804da64e.png",
+  "ad": "feed",
+  "out": "solar-generator/ads/img/curiosity",
+  "headline": "Still counting on a gas generator?",
+  "publisher": "The Home Power Desk"
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/f62cc5eb-db5a-4d56-a1b3-6228792db926_6c1f2a48.png",
+  "ad": "feed",
+  "out": "solar-generator/ads/img/benefit",
+  "headline": "Keep the lights on in the next outage",
+  "publisher": "The Home Power Desk"
+ }
+]

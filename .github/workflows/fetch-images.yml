@@ -1,0 +1,36 @@
+# Saves generated images into the repo when a Claude Code cloud session can't reach the image host.
+# The session commits _tools/fetch-jobs.json (see _tools/fetch-images.mjs for the format) and pushes;
+# this job downloads every image, converts it to WebP under 200 KB, builds the image ads, commits the
+# files and removes the jobs file.
+name: Fetch images
+on:
+  push:
+    branches: [main]
+    paths: ['_tools/fetch-jobs.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: fetch-images
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install ImageMagick
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick webp
+      - name: Download and convert
+        run: |
+          [ -f _tools/fetch-jobs.json ] || { echo "No _tools/fetch-jobs.json"; exit 0; }
+          node _tools/fetch-images.mjs _tools/fetch-jobs.json
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -q --ignore-unmatch _tools/fetch-jobs.json
+          git add -A
+          git diff --cached --quiet || git commit -m "Save fetched images"
+          git pull --rebase -q origin main
+          git push -q origin HEAD:main
