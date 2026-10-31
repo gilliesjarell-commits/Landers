@@ -1,0 +1,48 @@
+# Transcribes generated video clips with word timings (for caption timing and to check what was said),
+# for Claude Code cloud sessions that can't download speech models themselves.
+# The session commits _tools/transcribe-jobs.json ([{ "url": "https://...mp4", "name": "pain" }]) and pushes;
+# this job writes _tools/transcripts/<name>.json (words with start/end seconds) and removes the jobs file.
+name: Transcribe clips
+on:
+  push:
+    branches: [main]
+    paths: ['_tools/transcribe-jobs.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: transcribe
+jobs:
+  transcribe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: pip install -q faster-whisper
+      - name: Transcribe
+        run: |
+          [ -f _tools/transcribe-jobs.json ] || { echo "No jobs"; exit 0; }
+          python - <<'PY'
+          import json, os, urllib.request
+          from faster_whisper import WhisperModel
+          model = WhisperModel("small.en", device="cpu", compute_type="int8")
+          os.makedirs("_tools/transcripts", exist_ok=True)
+          for job in json.load(open("_tools/transcribe-jobs.json")):
+              path = f"/tmp/{job['name']}.mp4"
+              urllib.request.urlretrieve(job["url"], path)
+              segments, _ = model.transcribe(path, word_timestamps=True, vad_filter=False)
+              words = [{"w": w.word.strip(), "start": round(w.start, 2), "end": round(w.end, 2)} for s in segments for w in s.words]
+              json.dump({"text": " ".join(x["w"] for x in words), "words": words}, open(f"_tools/transcripts/{job['name']}.json", "w"), indent=1)
+              print(job["name"], " ".join(x["w"] for x in words))
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -q --ignore-unmatch _tools/transcribe-jobs.json
+          git add -A _tools/transcripts
+          git diff --cached --quiet || git commit -m "Save transcripts"
+          git pull --rebase -q origin main
+          git push -q origin HEAD:main
