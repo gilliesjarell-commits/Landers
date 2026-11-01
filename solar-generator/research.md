@@ -28,7 +28,7 @@
     https://androidguys.com/news/4patriots-launches-2200x-completes-solar-generator-lineup
 - **EPC:** $1.69 (from the user; information only).
 - **Affiliate link:** `https://afflat3e1.com/trk/lnk/5531C00A-712E-4ABF-A234-CC63ACF75F16/?o=31558&c=918277&a=794976&k=B35EE24D4BCADACAA2946DD48B0DD63A&l=37137`
-  plus `&sub=<angle>` on each page.
+  plus `&s1=<angle>` on each page (CAKE sub-ID field s1).
 - **Traffic:** TikTok, Instagram and Facebook (overrides the Facebook + Native default).
 - **Test budget:** $50 split across the 3 angles (~$16.67 each), one ad set per angle.
 
