@@ -1,0 +1,190 @@
+{
+ "text": "No cash deposit for a credit card. Some cards use your car's value to help set your credit line. Use it for repairs or bills and keep driving your car. Tap below to see how it works.",
+ "words": [
+  {
+   "w": "No",
+   "start": 0.0,
+   "end": 0.82
+  },
+  {
+   "w": "cash",
+   "start": 0.82,
+   "end": 1.14
+  },
+  {
+   "w": "deposit",
+   "start": 1.14,
+   "end": 1.6
+  },
+  {
+   "w": "for",
+   "start": 1.6,
+   "end": 2.0
+  },
+  {
+   "w": "a",
+   "start": 2.0,
+   "end": 2.2
+  },
+  {
+   "w": "credit",
+   "start": 2.2,
+   "end": 2.4
+  },
+  {
+   "w": "card.",
+   "start": 2.4,
+   "end": 2.8
+  },
+  {
+   "w": "Some",
+   "start": 3.42,
+   "end": 3.66
+  },
+  {
+   "w": "cards",
+   "start": 3.66,
+   "end": 4.08
+  },
+  {
+   "w": "use",
+   "start": 4.08,
+   "end": 4.74
+  },
+  {
+   "w": "your",
+   "start": 4.74,
+   "end": 5.02
+  },
+  {
+   "w": "car's",
+   "start": 5.02,
+   "end": 5.5
+  },
+  {
+   "w": "value",
+   "start": 5.5,
+   "end": 5.84
+  },
+  {
+   "w": "to",
+   "start": 5.84,
+   "end": 6.1
+  },
+  {
+   "w": "help",
+   "start": 6.1,
+   "end": 6.28
+  },
+  {
+   "w": "set",
+   "start": 6.28,
+   "end": 6.54
+  },
+  {
+   "w": "your",
+   "start": 6.54,
+   "end": 6.74
+  },
+  {
+   "w": "credit",
+   "start": 6.74,
+   "end": 7.02
+  },
+  {
+   "w": "line.",
+   "start": 7.02,
+   "end": 7.42
+  },
+  {
+   "w": "Use",
+   "start": 8.42,
+   "end": 8.7
+  },
+  {
+   "w": "it",
+   "start": 8.7,
+   "end": 8.84
+  },
+  {
+   "w": "for",
+   "start": 8.84,
+   "end": 9.08
+  },
+  {
+   "w": "repairs",
+   "start": 9.08,
+   "end": 9.56
+  },
+  {
+   "w": "or",
+   "start": 9.56,
+   "end": 10.3
+  },
+  {
+   "w": "bills",
+   "start": 10.3,
+   "end": 10.6
+  },
+  {
+   "w": "and",
+   "start": 10.6,
+   "end": 10.84
+  },
+  {
+   "w": "keep",
+   "start": 10.84,
+   "end": 11.02
+  },
+  {
+   "w": "driving",
+   "start": 11.02,
+   "end": 11.34
+  },
+  {
+   "w": "your",
+   "start": 11.34,
+   "end": 11.58
+  },
+  {
+   "w": "car.",
+   "start": 11.58,
+   "end": 11.94
+  },
+  {
+   "w": "Tap",
+   "start": 12.96,
+   "end": 13.02
+  },
+  {
+   "w": "below",
+   "start": 13.02,
+   "end": 13.3
+  },
+  {
+   "w": "to",
+   "start": 13.3,
+   "end": 13.52
+  },
+  {
+   "w": "see",
+   "start": 13.52,
+   "end": 13.66
+  },
+  {
+   "w": "how",
+   "start": 13.66,
+   "end": 13.86
+  },
+  {
+   "w": "it",
+   "start": 13.86,
+   "end": 13.98
+  },
+  {
+   "w": "works.",
+   "start": 13.98,
+   "end": 14.26
+  }
+ ]
+}
