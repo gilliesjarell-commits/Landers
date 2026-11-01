@@ -1,0 +1,88 @@
+[
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/cc9bcc81-9061-4159-b79e-285bacfcee54_d5d9053a.png",
+  "out": "car-credit-card/img/pain-inline-2.webp",
+  "width": 1000
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/3667a6fe-7961-4856-a24b-79a9aebd8834_810f9387.png",
+  "out": "car-credit-card/img/pain-inline-1.webp",
+  "width": 1000
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/8de09fc8-a95f-4c99-bd9b-06d7e4d913be_c7244654.png",
+  "out": "car-credit-card/img/curiosity-hero.webp",
+  "width": 1200
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/aad9f6c6-7208-4678-9f9d-c7a1e898de1a_7c2c4ede.png",
+  "out": "car-credit-card/img/pain-hero.webp",
+  "width": 1200
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/9e277f04-b1c9-49a5-a982-773799f092c9_083031e1.png",
+  "out": "car-credit-card/img/curiosity-answer-1.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/cf5ed50d-a34d-4e20-911d-f1aa21f088ce_6beb93c6.png",
+  "out": "car-credit-card/img/curiosity-answer-2.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/6f817288-be66-4be2-ad6c-4f7610feca18_4b89f1f3.png",
+  "out": "car-credit-card/img/curiosity-answer-3.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/ba999442-da93-4c06-8e44-ff81a36be465_c263c0a8.png",
+  "out": "car-credit-card/img/curiosity-answer-4.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/fc80adcd-9bc0-4425-82d5-e71b08524706_ba046dfa.png",
+  "out": "car-credit-card/img/benefit-answer-1.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/13a65c8f-440a-4f7e-9771-be977b471f17_c3fdb6ac.png",
+  "out": "car-credit-card/img/benefit-hero.webp",
+  "width": 1200
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/3e79cfbd-e47a-4fad-ba52-8e9bbbf6d442_420d85b9.png",
+  "out": "car-credit-card/img/benefit-answer-2.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/7be76918-98b1-4c9d-b282-9f1550bea626_461c6dff.png",
+  "out": "car-credit-card/img/benefit-answer-4.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/e3c691c2-fa13-46da-b3be-9b7eeaada1cd_03d4d416.png",
+  "out": "car-credit-card/img/benefit-answer-3.webp",
+  "width": 600
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/8c0bf760-4cb9-4ed0-a88e-e85887467df9_8de0af8a.png",
+  "ad": "feed",
+  "out": "car-credit-card/ads/img/pain",
+  "headline": "Your car could help you get a card",
+  "publisher": "Plain Credit Notes"
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/a7b47df9-5cac-486d-b65e-4ddf01cdd372_77af0ada.png",
+  "ad": "feed",
+  "out": "car-credit-card/ads/img/curiosity",
+  "headline": "Could your car get you a credit card?",
+  "publisher": "Plain Credit Notes"
+ },
+ {
+  "url": "https://cdn.muapi.ai/outputs/generated/4add37fc-ed1f-46be-8591-3db28ac0ffb3_222cb865.png",
+  "ad": "feed",
+  "out": "car-credit-card/ads/img/benefit",
+  "headline": "Use your car's value for a credit line",
+  "publisher": "Plain Credit Notes"
+ }
+]
