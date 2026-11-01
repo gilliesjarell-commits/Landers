@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campaign Dashboard: Vehicle-Secured Credit Card</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Sora,system-ui,sans-serif;background:#070b14;color:#dbe4f0;line-height:1.6;min-height:100vh;overflow-x:hidden}
+.blob{position:fixed;border-radius:50%;filter:blur(140px);z-index:0;pointer-events:none}
+.b1{width:480px;height:480px;background:#2e7d32;opacity:.3;top:-200px;left:-160px}
+.b2{width:420px;height:420px;background:#3b62c4;opacity:.22;top:-160px;right:-140px}
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:40px 20px 70px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#7ee085,#2e7d32);display:flex;align-items:center;justify-content:center;font-weight:800;color:#06210b}
+.wm{font-weight:800;font-size:15px;color:#fff}
+.tag{display:inline-flex;align-items:center;gap:8px;background:rgba(46,125,50,.14);color:#7ee085;border:1px solid rgba(46,125,50,.4);padding:6px 15px;border-radius:30px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase}
+.dot{width:7px;height:7px;border-radius:50%;background:#7ee085;box-shadow:0 0 10px #7ee085;animation:p 1.8s infinite}
+@keyframes p{50%{opacity:.35}}
+h1{font-size:clamp(32px,6vw,50px);font-weight:800;letter-spacing:-1.4px;line-height:1.08;margin:18px 0 10px;background:linear-gradient(100deg,#fff 25%,#8fa6c4);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:#7d8fa8;font-size:15px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 34px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);padding:7px 13px;border-radius:10px;font-size:12px;color:#a8bad0}
+.chip b{color:#fff}
+h2{font-size:13px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#7d8fa8;margin:0 0 14px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px}
+.card{display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-top:3px solid var(--c);border-radius:18px;padding:20px;transition:transform .2s,background .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);background:rgba(255,255,255,.07);border-color:var(--c)}
+.ch{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.badge{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:var(--c);background:rgba(255,255,255,.06);border:1px solid var(--c)}
+.nm{font-weight:700;color:#fff;flex:1}
+.go{font-size:12px;color:var(--c);font-weight:700}
+.card p{font-size:13.5px;color:#a8bad0;margin-bottom:12px}
+.thumb{display:block;margin:-20px -20px 14px;aspect-ratio:16/9;background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.01));border-radius:15px 15px 0 0;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card code{display:block;font-size:11px;color:#6b7f9a;word-break:break-all;background:rgba(0,0,0,.25);padding:8px 10px;border-radius:8px}
+.panel{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:22px;margin-bottom:40px}
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tab{font-family:inherit;font-size:13.5px;font-weight:700;color:#a8bad0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:9px 18px;border-radius:30px;cursor:pointer}
+.tab.on{color:#070b14;background:var(--c);border-color:var(--c)}
+.pane{display:none}.pane.on{display:block}
+.lp{font-size:12.5px;color:#7d8fa8;margin-bottom:14px}.lp a{color:#7ee085}
+.grp{margin-bottom:20px}
+.grp h4{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8fa6c4;margin-bottom:8px}
+.grp ul{list-style:none;display:grid;gap:8px}
+.grp li{display:flex;gap:12px;align-items:flex-start;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px 14px}
+.grp .t{flex:1;font-size:14px;color:#dbe4f0}
+.cp{font-family:inherit;flex:0 0 auto;font-size:11.5px;font-weight:700;color:#7ee085;background:rgba(126,224,133,.1);border:1px solid rgba(126,224,133,.35);border-radius:8px;padding:6px 11px;cursor:pointer}
+.cp.done{color:#070b14;background:#7ee085}
+.why{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:10px}
+.sc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;opacity:.55}
+.sc.on{opacity:1;background:rgba(126,224,133,.07);border-color:rgba(126,224,133,.35)}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-bottom:6px}.sh b{color:#fff;font-size:13.5px}
+.dots{font-size:12px;font-weight:700;color:#7ee085}.sc p{font-size:12px;color:#a8bad0}
+.adimgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-bottom:6px}.adimg{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px;margin:0;min-width:0}.adimg img{width:100%;border-radius:8px;display:block;background:#0b1220}.adimg figcaption{font-size:11.5px;color:#a8bad0;margin:8px 0 0;line-height:1.4}.adimg figcaption b{color:#fff}.dl{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.dl a{font-size:11.5px;font-weight:700;color:#7ee085;background:rgba(126,224,133,.1);border:1px solid rgba(126,224,133,.35);border-radius:8px;padding:6px 10px;text-decoration:none}
+.srcl{font-size:12px;color:#6b7f9a;margin-bottom:34px}.srcl a{color:#7ee085}
+@media(max-width:760px){.why{grid-template-columns:1fr 1fr}}
+.notice{background:rgba(59,98,196,.12);border:1px solid rgba(96,165,250,.35);border-radius:14px;padding:14px 16px;font-size:13.5px;color:#c4d2e6;margin-bottom:10px}.notice b{color:#93c5fd}.notice.warn{background:rgba(250,204,21,.07);border-color:rgba(250,204,21,.35)}.notice.warn b{color:#fde68a}.notices{margin:-10px 0 34px}.fmt{display:inline-block;font-size:11px;font-weight:700;color:#c4d2e6;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:3px 10px;margin:0 0 10px}.why{margin-bottom:34px!important}.foot{margin-top:40px;padding-top:18px;border-top:1px solid rgba(255,255,255,.07);text-align:center;font-size:11.5px;color:#4e5f78}
+@media(max-width:760px){.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<div class="wrap">
+<div class="top"><div class="mark">C</div><span class="wm">Campaign Agent</span></div>
+<span class="tag"><span class="dot"></span>Testing</span>
+<h1>Vehicle-Secured Credit Card</h1>
+<p class="sub">Research picked 3 of 5 angles. 3 bridge pages, ad copy ready to paste. Built and deployed with Claude Code.</p>
+<div class="meta"><span class="chip">Launched &middot; <b>Nov 1, 2026</b></span><span class="chip">Vertical &middot; <b>Finance (credit card)</b></span><span class="chip">EPC &middot; <b>$1.20</b></span><span class="chip">Test budget &middot; <b>$50</b></span><span class="chip">Traffic &middot; <b>TikTok + Instagram + Facebook</b></span><span class="chip">Affiliate link &middot; <b>Live</b></span></div>
+<div class="notices"><div class="notice warn"><b>Meta: Special Ad Category required.</b> Credit cards must run under <b>Financial Products and Services</b> (US). Age, gender and ZIP targeting are removed, so use broad targeting. No personal-attribute wording in ads ("Bad credit?", "Were you denied?").</div><div class="notice warn"><b>TikTok: restricted category.</b> Credit card ads must come from or for a licensed issuer, include required disclosures, target 18+, and may need pre-authorization through a TikTok sales rep. The policy changed in June 2026; confirm current rules (and whether affiliates can run them) before spending.</div><div class="notice"><b>Finance compliance baseline:</b> no approval promises, no "no credit check", no APR, limit or fee numbers in ads or pages. Every page states that credit is subject to approval, not available in all states, and secured by the vehicle (which may be at risk if payments aren't made).</div><div class="notice warn"><b>Legal pages:</b> your business name, email, address and governing law are still placeholders (yellow on the Privacy Policy and Terms). Fill them in CLAUDE.md Settings, then run <code>/legal car-credit-card</code>.</div><div class="notice"><b>Publisher:</b> "Plain Credit Notes". Rename it to match your domain with <code>/swap-logo car-credit-card &lt;name&gt;</code>. TikTok needs video: <code>/make-video car-credit-card</code>.</div></div>
+<h2>Why these angles</h2>
+<div class="why">
+<div class="sc on"><div class="sh"><b>Pain Point</b><span class="dots">5/5</span></div><p>Denied, no cash for a deposit, a surprise repair: moments this person knows well.</p></div>
+<div class="sc on"><div class="sh"><b>Curiosity</b><span class="dots">4/5</span></div><p>"Could your car help you get a credit card?" is a real surprise for most people.</p></div>
+<div class="sc on"><div class="sh"><b>Direct Benefit</b><span class="dots">4/5</span></div><p>Your car's value instead of a cash deposit, and you keep driving it.</p></div>
+<div class="sc"><div class="sh"><b>Social Proof</b><span class="dots">2/5</span></div><p>Skipped: reviews are mixed and the offer owner supplied no numbers.</p></div>
+<div class="sc"><div class="sh"><b>Fear</b><span class="dots">1/5</span></div><p>Skipped: financially vulnerable audience; fear in credit feels predatory.</p></div>
+</div>
+<h2>Landing pages</h2>
+<div class="cards"><a class="card" href="https://gilliesjarell-commits.github.io/Landers/car-credit-card/pain.html" target="_blank" rel="noopener" style="--c:#fb7185">
+<span class="thumb"><img src="https://gilliesjarell-commits.github.io/Landers/car-credit-card/img/pain-hero.webp" alt="" onerror="this.style.opacity=0"></span><div class="ch"><span class="badge">A</span><span class="nm">Pain Point Lander</span><span class="go">Open &#8599;</span></div><span class="fmt">Advertorial</span>
+<p>Turned down, no cash for a deposit, a surprise repair: then how a car-secured card works, trade-off included.</p><code>https://gilliesjarell-commits.github.io/Landers/car-credit-card/pain.html</code></a><a class="card" href="https://gilliesjarell-commits.github.io/Landers/car-credit-card/curiosity.html" target="_blank" rel="noopener" style="--c:#a78bfa">
+<span class="thumb"><img src="https://gilliesjarell-commits.github.io/Landers/car-credit-card/img/curiosity-hero.webp" alt="" onerror="this.style.opacity=0"></span><div class="ch"><span class="badge">B</span><span class="nm">Curiosity Lander</span><span class="go">Open &#8599;</span></div><span class="fmt">Quiz</span>
+<p>&quot;Could your car help you get a credit card?&quot; Vehicle questions, ZIP last, then the offer.</p><code>https://gilliesjarell-commits.github.io/Landers/car-credit-card/curiosity.html</code></a><a class="card" href="https://gilliesjarell-commits.github.io/Landers/car-credit-card/benefit.html" target="_blank" rel="noopener" style="--c:#2dd4bf">
+<span class="thumb"><img src="https://gilliesjarell-commits.github.io/Landers/car-credit-card/img/benefit-hero.webp" alt="" onerror="this.style.opacity=0"></span><div class="ch"><span class="badge">C</span><span class="nm">Direct Benefit Lander</span><span class="go">Open &#8599;</span></div><span class="fmt">Quiz</span>
+<p>Use your car&#x27;s value for a credit line, no cash deposit, keep driving it.</p><code>https://gilliesjarell-commits.github.io/Landers/car-credit-card/benefit.html</code></a></div>
+<h2>Ad copy</h2>
+<div class="panel"><div class="tabs"><button class="tab on" data-t="Pain-Point" type="button" style="--c:#fb7185">Pain Point</button><button class="tab" data-t="Curiosity" type="button" style="--c:#a78bfa">Curiosity</button><button class="tab" data-t="Direct-Benefit" type="button" style="--c:#2dd4bf">Direct Benefit</button></div><div class="pane on" id="p-Pain-Point"><div class="lp">Lands on <a href="https://gilliesjarell-commits.github.io/Landers/car-credit-card/pain.html" target="_blank" rel="noopener">pain.html</a></div><div class="grp"><h4>Image ads</h4><div class="adimgs"><figure class="adimg"><img src="ads/img/pain-feed-4x5.webp" alt="" loading="lazy"><figcaption><b>Feed 4:5</b><br>Facebook &amp; Instagram feed</figcaption><div class="dl"><a href="ads/img/pain-feed-4x5.webp" download>Download</a></div></figure><figure class="adimg"><img src="ads/img/pain-feed-1x1.webp" alt="" loading="lazy"><figcaption><b>Feed 1:1</b><br>Facebook, Instagram, Audience Network</figcaption><div class="dl"><a href="ads/img/pain-feed-1x1.webp" download>Download</a></div></figure></div></div>
+<div class="grp"><h4>Hooks (under 15 words)</h4><ul><li><span class="t">The repair bill came in. The credit card application didn&#x27;t go through.</span><button class="cp" type="button">Copy</button></li><li><span class="t">A secured card that doesn&#x27;t ask for a cash deposit.</span><button class="cp" type="button">Copy</button></li><li><span class="t">The car in your driveway might help you get a credit card.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>PAS body (Pain → Agitate → Solution)</h4><ul><li><span class="t">A surprise repair or bill shows up, and the usual options aren&#x27;t there: regular cards say no, and secured cards want a cash deposit. A vehicle-secured credit card uses your car&#x27;s value instead of a deposit to help set the credit line, and you keep driving the car. It&#x27;s secured by the vehicle, so it&#x27;s for people who can make the payments. See how it works and whether it&#x27;s available where you live.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Facebook / Instagram / TikTok: primary text</h4><ul><li><span class="t">A credit card that uses your car&#x27;s value instead of a cash deposit. See how it works.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Secured cards usually want a cash deposit up front. This one uses your vehicle&#x27;s value instead, and you keep driving your car. Subject to approval; not available in all states. See how it works.</span><button class="cp" type="button">Copy</button></li><li><span class="t">The mechanic calls with a number you weren&#x27;t ready for. You try a card application on your lunch break, and it doesn&#x27;t go through. Then you look at the keys on the table. Some credit cards now use your car&#x27;s value, not a cash deposit, to help set a credit line. See how it works.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Facebook / Instagram / TikTok: headlines (≤40 characters)</h4><ul><li><span class="t">Your car could help you get a card</span><button class="cp" type="button">Copy</button></li><li><span class="t">A secured card with no cash deposit</span><button class="cp" type="button">Copy</button></li><li><span class="t">Use your car&#x27;s value, keep driving it</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Facebook / Instagram / TikTok: descriptions (≤30 characters)</h4><ul><li><span class="t">See how it works</span><button class="cp" type="button">Copy</button></li><li><span class="t">Subject to approval</span><button class="cp" type="button">Copy</button></li></ul></div>
+</div><div class="pane" id="p-Curiosity"><div class="lp">Lands on <a href="https://gilliesjarell-commits.github.io/Landers/car-credit-card/curiosity.html" target="_blank" rel="noopener">curiosity.html</a></div><div class="grp"><h4>Image ads</h4><div class="adimgs"><figure class="adimg"><img src="ads/img/curiosity-feed-4x5.webp" alt="" loading="lazy"><figcaption><b>Feed 4:5</b><br>Facebook &amp; Instagram feed</figcaption><div class="dl"><a href="ads/img/curiosity-feed-4x5.webp" download>Download</a></div></figure><figure class="adimg"><img src="ads/img/curiosity-feed-1x1.webp" alt="" loading="lazy"><figcaption><b>Feed 1:1</b><br>Facebook, Instagram, Audience Network</figcaption><div class="dl"><a href="ads/img/curiosity-feed-1x1.webp" download>Download</a></div></figure></div></div>
+<div class="grp"><h4>Hooks (under 15 words)</h4><ul><li><span class="t">Could your car help you get a credit card?</span><button class="cp" type="button">Copy</button></li><li><span class="t">Your car might be worth more than a ride to work.</span><button class="cp" type="button">Copy</button></li><li><span class="t">There&#x27;s a credit card that looks at your car, not just your score.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>PAS body (Pain → Agitate → Solution)</h4><ul><li><span class="t">Most people think of their car as a way to get to work, not as a path to credit. But some credit cards now use a vehicle&#x27;s value to help set the credit line, instead of asking for a cash deposit. Answer four quick questions about your car and see how it works, and whether it&#x27;s offered in your area.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Facebook / Instagram / TikTok: primary text</h4><ul><li><span class="t">Could your car help you get a credit card? Answer 4 quick questions to see how it works.</span><button class="cp" type="button">Copy</button></li><li><span class="t">Some credit cards now use your vehicle&#x27;s value, instead of a cash deposit, to help set a credit line. You keep driving the car. Take a 30-second quiz to see how it works and whether it&#x27;s available near you.</span><button class="cp" type="button">Copy</button></li><li><span class="t">You walk out to the driveway and look at your car a little differently. It gets you to work, sure. But what if it could also help you open a credit line, without a cash deposit? Take the 30-second quiz and see how it works.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Facebook / Instagram / TikTok: headlines (≤40 characters)</h4><ul><li><span class="t">Could your car get you a credit card?</span><button class="cp" type="button">Copy</button></li><li><span class="t">Your car, a credit line?</span><button class="cp" type="button">Copy</button></li><li><span class="t">Take the 30-second car quiz</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Facebook / Instagram / TikTok: descriptions (≤30 characters)</h4><ul><li><span class="t">4 quick questions</span><button class="cp" type="button">Copy</button></li><li><span class="t">Free · No obligation</span><button class="cp" type="button">Copy</button></li></ul></div>
+</div><div class="pane" id="p-Direct-Benefit"><div class="lp">Lands on <a href="https://gilliesjarell-commits.github.io/Landers/car-credit-card/benefit.html" target="_blank" rel="noopener">benefit.html</a></div><div class="grp"><h4>Image ads</h4><div class="adimgs"><figure class="adimg"><img src="ads/img/benefit-feed-4x5.webp" alt="" loading="lazy"><figcaption><b>Feed 4:5</b><br>Facebook &amp; Instagram feed</figcaption><div class="dl"><a href="ads/img/benefit-feed-4x5.webp" download>Download</a></div></figure><figure class="adimg"><img src="ads/img/benefit-feed-1x1.webp" alt="" loading="lazy"><figcaption><b>Feed 1:1</b><br>Facebook, Instagram, Audience Network</figcaption><div class="dl"><a href="ads/img/benefit-feed-1x1.webp" download>Download</a></div></figure></div></div>
+<div class="grp"><h4>Hooks (under 15 words)</h4><ul><li><span class="t">Use your car&#x27;s value to open a credit line.</span><button class="cp" type="button">Copy</button></li><li><span class="t">No cash deposit. Keep driving your car.</span><button class="cp" type="button">Copy</button></li><li><span class="t">A credit line for repairs, bills and the unexpected.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>PAS body (Pain → Agitate → Solution)</h4><ul><li><span class="t">When money&#x27;s tight, a cash deposit for a secured card can be the thing standing in the way. A vehicle-secured credit card uses your car&#x27;s value instead, so you can have a credit line for repairs, everyday bills or an emergency cushion, while you keep driving your car. It&#x27;s secured by the vehicle, so borrow only what you can repay. Answer four quick questions to see how it works.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Facebook / Instagram / TikTok: primary text</h4><ul><li><span class="t">Use your car&#x27;s value to open a credit line, with no cash deposit. See how it works.</span><button class="cp" type="button">Copy</button></li><li><span class="t">A credit card secured by your vehicle, not a cash deposit. Use it for repairs, everyday bills or an emergency cushion, and keep driving your car. Subject to approval; not available in all states.</span><button class="cp" type="button">Copy</button></li><li><span class="t">The tire light comes on the same week rent is due. Instead of hunting for a cash deposit or a payday advance, you check whether your car&#x27;s value could open a credit line, and you keep driving it to work. See how it works.</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Facebook / Instagram / TikTok: headlines (≤40 characters)</h4><ul><li><span class="t">Use your car&#x27;s value for a credit line</span><button class="cp" type="button">Copy</button></li><li><span class="t">No cash deposit. Keep your car.</span><button class="cp" type="button">Copy</button></li><li><span class="t">A credit line backed by your car</span><button class="cp" type="button">Copy</button></li></ul></div>
+<div class="grp"><h4>Facebook / Instagram / TikTok: descriptions (≤30 characters)</h4><ul><li><span class="t">See how it works</span><button class="cp" type="button">Copy</button></li><li><span class="t">Subject to approval</span><button class="cp" type="button">Copy</button></li></ul></div>
+</div></div>
+<p class="foot">Generated by the Campaign Agent &middot; Claude Code</p>
+</div>
+<script>
+document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){
+document.querySelectorAll('.tab,.pane').forEach(function(e){e.classList.remove('on')});
+t.classList.add('on');document.getElementById('p-'+t.dataset.t).classList.add('on');})});
+document.querySelectorAll('.cp').forEach(function(b){b.addEventListener('click',function(){
+var txt=b.previousElementSibling.textContent;
+var done=function(){b.textContent='Copied';b.classList.add('done');setTimeout(function(){b.textContent='Copy';b.classList.remove('done')},1400)};
+if(navigator.clipboard){navigator.clipboard.writeText(txt).then(done,function(){})}})});
+</script>
+</body>
+</html>
